@@ -1,0 +1,295 @@
+//#workerspages
+
+#workerspages, #recruiterspages {
+    width: 100%;
+}
+
+#workerspages section,
+#recruiterspages section {
+    margin-top: 40px;
+    margin-bottom: 40px;
+}
+
+#workerspages .homecolor,
+#recruiterspages .homecolor {
+    background-color: #F6F7F8;
+    width: 100%;
+}
+
+#workerspages .containerHome,
+#recruiterspages .containerHome {
+    display: flex;
+    padding: 20px 0px 0px 0px;
+    justify-content: center;
+}
+
+//SEARCH HOME PROFILE WORKER
+
+#workerspages .containerHome .searchwrapper,
+#recruiterspages .containerHome .searchwrapper {
+    box-sizing: border-box;
+    width: 1000px;
+    padding: 20px 0px 20px 0px;
+    background-color: #ffffff;
+    border-radius: 4px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    -ms-border-radius: 4px;
+    -o-border-radius: 4px;
+}
+
+//TABLE HOME PROFILE
+#workerspages .containerHome .tablewrapper,
+#recruiterspages .containerHome .tablewrapper {
+    box-sizing: border-box;
+    width: 1000px;
+    height: 800px;
+    background-color: #ffffff;
+    padding: 50px 0px 50px 0px;
+    border-radius: 4px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    -ms-border-radius: 4px;
+    -o-border-radius: 4px;
+}
+
+#workerspages .pagination,
+#recruiterspages .pagination {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    padding: 50px 0px 50px 0px;
+}
+
+#workerspages .pagination a{
+    color: #E2E5ED;
+    float: left;
+    padding: 8px 16px;
+    text-decoration: none;
+    transition: background-color .3s;
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    margin: 0 4px;
+    border-radius: 4px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    -ms-border-radius: 4px;
+    -o-border-radius: 4px;
+}
+
+#workerspages .pagination a.active{
+    background-color: #5E50A1;
+    color: #E2E5ED;
+    border: 1px solid #5E50A1;
+}
+
+#workerspages .pagination a:hover:not(.active) {
+    background-color: #5E50A1;
+}
+
+// PORTOFOLIO PROFILE
+#workerspages .homecolor.bgportofolio  {
+    width: 100%;
+    height: 700px;
+}
+
+#workerspages .homecolor.bgportofolio .purplebackground {
+    display: flex;
+    background-color: #5E50A1;
+    width: 100%;
+    height: 300px;
+    padding: 50px 150px;
+    justify-content: space-between;
+}
+
+#workerspages .homecolor.bgportofolio .purplebackground .profilewrapper {
+    background-color: #ffffff;
+    width: 300px;
+    height: 500px;
+    border-radius: 4px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    -ms-border-radius: 4px;
+    -o-border-radius: 4px;
+}
+
+#workerspages .homecolor.bgportofolio .purplebackground .portofoliowrapper {
+    background-color: #ffffff;
+    width: 700px;
+    height: 300px;
+    border-radius: 4px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    -ms-border-radius: 4px;
+    -o-border-radius: 4px;
+}
+
+// WORKERS PROFILE
+#workerspages .homecolor .workerscontainer {
+    display: flex;
+    width: 100%;
+}
+
+#workerspages .homecolor .workerscontainer .workerswrapper {
+    width: 800px;
+    padding: 50px 0px;
+    margin: 0 auto;
+}
+
+#workerspages .homecolor .workerscontainer .workerswrapper .rectanglepurple{
+    background-color: #5E50A1;
+    width: 100%;
+    height: 150px;
+    border-radius: 4px 4px 0px 0px;
+    -webkit-border-radius: 4px 4px 0px 0px;
+    -moz-border-radius: 4px 4px 0px 0px;
+    -ms-border-radius: 4px 4px 0px 0px;
+    -o-border-radius: 4px 4px 0px 0px;
+}
+
+#workerspages .homecolor .workerscontainer .workerswrapper .rectanglewhite{
+    background-color: #ffffff;
+    max-width: 100%;
+    height: 700px;
+    border-radius: 0px 0px 4px 4px;
+    -webkit-border-radius: 0px 0px 4px 4px;
+    -moz-border-radius: 0px 0px 4px 4px;
+    -ms-border-radius: 0px 0px 4px 4px;
+    -o-border-radius: 0px 0px 4px 4px;
+}
+
+
+// EDIT PROFILE WORKERS
+
+#workerspages .homecolor.bgedit  {
+    width: 100%;
+    height: 700px;
+}
+
+#workerspages .homecolor.bgedit .purplebackground {
+    display: flex;
+    background-color: #5E50A1;
+    width: 100%;
+    height: 300px;
+    padding: 50px 150px;
+    justify-content: space-between;
+}
+
+#workerspages .homecolor.bgedit .purplebackground .lefteditprofile {
+    display: flex;
+    width: 100%;
+}
+
+#workerspages .homecolor.bgedit .purplebackground .lefteditprofile .editprofilewrapper {
+    background-color: #ffffff;
+    width: 300px;
+    height: 300px;
+    border-radius: 4px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    -ms-border-radius: 4px;
+    -o-border-radius: 4px;
+}
+
+#workerspages .homecolor.bgedit .purplebackground .righteditprofile {
+    display: flex;
+    width: 100%;
+}
+
+#workerspages .homecolor.bgedit .purplebackground .righteditprofile .editformwrapper {
+    background-color: #ffffff;
+    width: 700px;
+    height: 500px;
+    border-radius: 4px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    -ms-border-radius: 4px;
+    -o-border-radius: 4px;
+}
+
+////////////////////////////////////////////////////////////
+
+//#recruiterspages
+
+// RECRUITERS PROFILE
+
+#recruiterspages .homecolor .recruiterscontainer {
+    display: flex;
+    width: 100%;
+}
+
+#recruiterspages .homecolor .recruiterscontainer .recruiterswrapper {
+    width: 800px;
+    padding: 50px 0px;
+    margin: 0 auto;
+}
+
+#recruiterspages .homecolor .recruiterscontainer .recruiterswrapper .rectanglepurple{
+    background-color: #5E50A1;
+    width: 100%;
+    height: 150px;
+    border-radius: 4px 4px 0px 0px;
+    -webkit-border-radius: 4px 4px 0px 0px;
+    -moz-border-radius: 4px 4px 0px 0px;
+    -ms-border-radius: 4px 4px 0px 0px;
+    -o-border-radius: 4px 4px 0px 0px;
+}
+
+#recruiterspages .homecolor .recruiterscontainer .recruiterswrapper .rectanglewhite{
+    background-color: #ffffff;
+    max-width: 100%;
+    height: 400px;
+    border-radius: 0px 0px 4px 4px;
+    -webkit-border-radius: 0px 0px 4px 4px;
+    -moz-border-radius: 0px 0px 4px 4px;
+    -ms-border-radius: 0px 0px 4px 4px;
+    -o-border-radius: 0px 0px 4px 4px;
+}
+
+//EDIT PROFILE RECRUITERS
+
+#recruiterspages .homecolor.bgedit  {
+    width: 100%;
+    height: 800px;
+}
+
+#recruiterspages .homecolor.bgedit .purplebackground {
+    display: flex;
+    background-color: #5E50A1;
+    width: 100%;
+    height: 300px;
+    padding: 50px 150px;
+    justify-content: space-between;
+}
+
+#recruiterspages .homecolor.bgedit .purplebackground .lefteditprofile {
+    display: flex;
+    width: 100%;
+}
+
+#recruiterspages .homecolor.bgedit .purplebackground .lefteditprofile .editprofilewrapper {
+    background-color: #ffffff;
+    width: 300px;
+    height: 300px;
+    border-radius: 4px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    -ms-border-radius: 4px;
+    -o-border-radius: 4px;
+}
+
+#recruiterspages .homecolor.bgedit .purplebackground .righteditprofile {
+    display: flex;
+    width: 100%;
+}
+
+#recruiterspages .homecolor.bgedit .purplebackground .righteditprofile .editformwrapper {
+    background-color: #ffffff;
+    width: 700px;
+    height: 700px;
+    border-radius: 4px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    -ms-border-radius: 4px;
+    -o-border-radius: 4px;
+}

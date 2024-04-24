@@ -16,6 +16,7 @@ import LoginPage from './views/authentications/login';
 
 import NoRoute from './views/404';
 import RegisterPage from './views/authentications/register';
+import RegisterRecruiters from './views/authentications/register-recruiters';
 import MainLayout from './views/website/hoc/mainlayout';
 import PageLayout from './views/website/pages/pagelayout';
 
@@ -41,6 +42,7 @@ const TheRoutes = () => {
                 <Route element={<AuthLayout />}>
                     <Route exact path={`auth/login`} element={<LoginPage />} />
                     <Route exact path={`auth/register`} element={<RegisterPage />} />
+                    <Route exact path={`auth/register-recruiters`} element={<RegisterRecruiters />} />
                 </Route>
                 <Route element={<PageLayout/>}>
                 <Route exact path={`workers/home`} element={<HomeWorkers />} />

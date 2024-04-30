@@ -3,6 +3,9 @@ import React from 'react';
 import FormField from '../utils/formfield';
 
 const LoginPage = () => {
+    const register = () => {
+        window.location.href = '/auth/register';
+    }
 
     const [formdata, formdataHandler] = React.useState({
         email: {
@@ -67,7 +70,7 @@ const LoginPage = () => {
                 Masuk
             </div>
             <div className='urlButton'>
-                <p>Anda belum punya akun?<span> Daftar disini</span></p>
+                <p>Anda belum punya akun?<span onClick={register}> Daftar disini</span></p>
             </div>
         </div>
     )

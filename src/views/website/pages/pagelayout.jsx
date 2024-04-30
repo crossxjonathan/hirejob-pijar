@@ -1,13 +1,15 @@
 import React from 'react';
 
+import MainHeader from '../hoc/mainheader';
 import { Outlet } from 'react-router-dom';
+import Footer from '../hoc/footer';
 
 const PageLayout = (props) => {
   return (
     <div id='pagewebsite'>
-        <div>Header</div>
+        <MainHeader/>
         <Outlet/>
-        <div>Footer</div>
+        <Footer/>
     </div>
   )
 }

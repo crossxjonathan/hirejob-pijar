@@ -6,11 +6,13 @@ const PortofolioProfile = () => {
             <section>
                 <div className='homecolor bgportofolio'>
                     <div className='purplebackground'>
-                        <div className='profilewrapper'>
-                            profile
-                        </div>
-                        <div className='portofoliowrapper'>
-                            portofolio
+                        <div className='portofoliocontainer'>
+                            <div className='profilewrapper'>
+                                profile
+                            </div>
+                            <div className='portofoliowrapper'>
+                                portofolio
+                            </div>
                         </div>
                     </div>
                 </div>

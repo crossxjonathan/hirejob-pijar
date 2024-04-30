@@ -7,7 +7,7 @@
 #workerspages section,
 #recruiterspages section {
     margin-top: 40px;
-    margin-bottom: 40px;
+    // margin-bottom: 40px;
 }
 
 #workerspages .homecolor,
@@ -94,11 +94,14 @@
 }
 
 #workerspages .homecolor.bgportofolio .purplebackground {
-    display: flex;
     background-color: #5E50A1;
     width: 100%;
     height: 300px;
     padding: 50px 150px;
+}
+
+#workerspages .homecolor.bgportofolio .purplebackground .portofoliocontainer{
+    display: flex;
     justify-content: space-between;
 }
 
@@ -106,6 +109,7 @@
     background-color: #ffffff;
     width: 300px;
     height: 500px;
+    margin-right: 10px;
     border-radius: 4px;
     -webkit-border-radius: 4px;
     -moz-border-radius: 4px;
@@ -117,6 +121,7 @@
     background-color: #ffffff;
     width: 700px;
     height: 300px;
+    margin-left: 10px;
     border-radius: 4px;
     -webkit-border-radius: 4px;
     -moz-border-radius: 4px;
@@ -163,7 +168,7 @@
 
 #workerspages .homecolor.bgedit  {
     width: 100%;
-    height: 700px;
+    height: 2200px;
 }
 
 #workerspages .homecolor.bgedit .purplebackground {
@@ -176,7 +181,7 @@
 }
 
 #workerspages .homecolor.bgedit .purplebackground .lefteditprofile {
-    display: flex;
+    display: block;
     width: 100%;
 }
 
@@ -192,11 +197,125 @@
 }
 
 #workerspages .homecolor.bgedit .purplebackground .righteditprofile {
-    display: flex;
+    display: block;
     width: 100%;
 }
 
 #workerspages .homecolor.bgedit .purplebackground .righteditprofile .editformwrapper {
+    background-color: #ffffff;
+    width: 700px;
+    height: 600px;
+    border-radius: 4px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    -ms-border-radius: 4px;
+    -o-border-radius: 4px;
+}
+
+#workerspages .homecolor.bgedit .purplebackground .righteditprofile .editformwrapper .title-form,
+#workerspages .homecolor.bgedit .purplebackground .righteditprofile .work-experience .title-form,
+#workerspages .homecolor.bgedit .purplebackground .righteditprofile .portofolio .title-form {
+    font-weight: 500;
+    font-size: 20px;
+    padding: 20px 0px 10px 20px;
+}
+
+#workerspages .homecolor.bgedit .purplebackground .righteditprofile .editformwrapper hr,
+#workerspages .homecolor.bgedit .purplebackground .righteditprofile .editSkillprofile hr,
+#workerspages .homecolor.bgedit .purplebackground .righteditprofile .work-experience hr,
+#workerspages .homecolor.bgedit .purplebackground .righteditprofile .portofolio hr {
+    width: 100%;
+    border: none;
+    height: 1px;
+    background-color: #C4C4C4;
+}
+
+
+#workerspages .righteditprofile .editformwrapper .formGroup,
+#workerspages .righteditprofile .editSkillprofile .formGroup,
+#workerspages .righteditprofile .workexperienceform .formGroup,
+#workerspages .righteditprofile .portofolio .formGroup {
+    margin-bottom: 10px;
+    padding: 10px 10px;
+}
+
+#workerspages .righteditprofile .editformwrapper .formGroup h6,
+#workerspages .righteditprofile .editSkillprofile .formGroup h6,
+#workerspages .righteditprofile .work-experience .formGroup h6,
+#workerspages .righteditprofile .portofolio .formGroup h6 {
+    color: #A0A0A0;
+}
+
+// EDIT SKILL PROFILE
+#workerspages .homecolor.bgedit .purplebackground .righteditprofile .editSkillprofile {
+    display: block;
+    background-color: #ffffff;
+    width: 700px;
+    height: 150px;
+    margin: 20px 0px;
+    border-radius: 4px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    -ms-border-radius: 4px;
+    -o-border-radius: 4px;
+}
+
+#workerspages .homecolor.bgedit .purplebackground .righteditprofile .editSkillprofile .skillContainer {
+    display: flex;
+    justify-content: space-between;
+}
+
+#workerspages .homecolor.bgedit .purplebackground .righteditprofile .editSkillprofile .title-skill {
+    font-weight: 500;
+    font-size: 20px;
+    padding: 20px 0px 10px 20px;
+}
+
+#workerspages .righteditprofile .editSkillprofile input[type="text"] {
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    margin: 0;
+    list-style: none;
+    position: relative;
+    padding: 7px 13px;
+    width: 550px;
+    height: 35px;
+    font-size: 15px;
+    line-height: 1.5;
+    background-image: none;
+    border-radius: 4px;
+    color: #1a1a1a;
+    background-color: #ffffff;
+    border: 1px solid #d3d3d3;
+}
+
+#workerspages .homecolor.bgedit .purplebackground .righteditprofile .editSkillprofile .skill-button {
+    background-color: #FBB017;
+    margin-top: 10px;
+    width: 100%;
+    height: 50px;
+    color: #ffffff;
+    font-weight: 700;
+    padding: 13px 40px;
+    cursor: pointer;
+    border: 1px solid #ffffff;
+    border-radius: 6px;
+    -webkit-border-radius: 6px;
+    -moz-border-radius: 6px;
+    -ms-border-radius: 6px;
+    -o-border-radius: 6px;
+}
+
+#workerspages .homecolor.bgedit .purplebackground .righteditprofile .editSkillprofile .skill-button:hover {
+    background-color: #ffffff;
+    color: #FBB017;
+    border: 1px solid #FBB017;
+}
+
+// FORM WORK EXPERIENCE INPUT
+
+#workerspages .homecolor.bgedit .purplebackground .righteditprofile .work-experience {
+    display: block;
     background-color: #ffffff;
     width: 700px;
     height: 500px;
@@ -206,6 +325,332 @@
     -ms-border-radius: 4px;
     -o-border-radius: 4px;
 }
+
+#workerspages .righteditprofile .work-experience input[type="text"] {
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    margin: 0;
+    list-style: none;
+    position: relative;
+    padding: 7px 13px;
+    width: 100%;
+    height: 35px;
+    font-size: 15px;
+    line-height: 1.5;
+    background-image: none;
+    border-radius: 4px;
+    color: #1a1a1a;
+    background-color: #ffffff;
+    border: 1px solid #d3d3d3;
+}
+
+#workerspages .homecolor.bgedit .purplebackground .righteditprofile .work-experience .companyform {
+    display: flex;
+}
+
+#workerspages .righteditprofile .work-experience .companyform input[type="text"] {
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    margin: 0;
+    list-style: none;
+    position: relative;
+    padding: 7px 13px;
+    width: 330px;
+    height: 35px;
+    font-size: 15px;
+    line-height: 1.5;
+    background-image: none;
+    border-radius: 4px;
+    color: #1a1a1a;
+    background-color: #ffffff;
+    border: 1px solid #d3d3d3;
+}
+
+#workerspages .righteditprofile .work-experience .companyform input[type="datetime"] {
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    margin: 0;
+    list-style: none;
+    position: relative;
+    padding: 7px 13px;
+    width: 330px;
+    height: 35px;
+    font-size: 15px;
+    line-height: 1.5;
+    background-image: none;
+    border-radius: 4px;
+    color: #1a1a1a;
+    background-color: #ffffff;
+    border: 1px solid #d3d3d3;
+}
+
+#workerspages .righteditprofile .editformwrapper .descriptionform input[type="text"],
+#workerspages .righteditprofile .workexperienceform .descriptionform input[type="text"] {
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    margin: 0;
+    list-style: none;
+    position: relative;
+    padding: 0px 0px 50px 10px;
+    width: 100%;
+    height: 100px;
+    font-size: 15px;
+    line-height: 1.5;
+    background-image: none;
+    border-radius: 4px;
+    color: #1a1a1a;
+    background-color: #ffffff;
+    border: 1px solid #d3d3d3;
+}
+
+#workerspages .homecolor.bgedit .purplebackground .righteditprofile .work-experience .add-experience {
+    background-color: #ffffff;
+    margin-top: 10px;
+    width: 100%;
+    height: 50px;
+    color: #FBB017;
+    font-weight: 700;
+    text-align: center;
+    padding-top: 10px;
+    cursor: pointer;
+    border: 1px solid #FBB017;
+    border-radius: 6px;
+    -webkit-border-radius: 6px;
+    -moz-border-radius: 6px;
+    -ms-border-radius: 6px;
+    -o-border-radius: 6px;
+}
+
+#workerspages .homecolor.bgedit .purplebackground .righteditprofile .work-experience .add-experience:hover {
+    background-color: #FBB017;
+    color: #ffffffff;
+    border: 1px solid #ffaa00;
+}
+
+#workerspages .homecolor.bgedit .purplebackground .righteditprofile .portofolio {
+    display: block;
+    background-color: #ffffff;
+    width: 700px;
+    height: 800px;
+    margin-top: 20px;
+    border-radius: 4px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    -ms-border-radius: 4px;
+    -o-border-radius: 4px;
+}
+
+#workerspages .righteditprofile .portofolio .portofolioform input[type="text"] {
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    margin: 0;
+    list-style: none;
+    position: relative;
+    padding: 7px 13px;
+    width: 100%;
+    height: 35px;
+    font-size: 15px;
+    line-height: 1.5;
+    background-image: none;
+    border-radius: 4px;
+    color: #1a1a1a;
+    background-color: #ffffff;
+    border: 1px solid #d3d3d3;
+}
+
+#workerspages .homecolor.bgedit .purplebackground .righteditprofile .portofolio .type-portofolio {
+    padding: 10px;
+}
+
+#workerspages .homecolor.bgedit .purplebackground .righteditprofile .portofolio .type-portofolio .title-portofolio,
+#workerspages .homecolor.bgedit .purplebackground .righteditprofile .portofolio .uploadwrapper .title-portofolio {
+    font-weight: 500;
+    line-height: 16.34px;
+    color: #9EA0A5;
+    padding-bottom: 20px;
+}
+
+
+#workerspages .homecolor.bgedit .purplebackground .righteditprofile .portofolio .type-portofolio .portofolio-radio label {
+    display: flex;
+    cursor: pointer;
+    display: inline-block;
+    margin-right: 50px;
+}
+
+#workerspages .homecolor.bgedit .purplebackground .righteditprofile .portofolio .type-portofolio .portofolio-radio p {
+    padding: 0px 30px;
+    font-weight: 600;
+}
+
+#workerspages .homecolor.bgedit .purplebackground .righteditprofile .portofolio .type-portofolio .portofolio-radio input[type="radio"] {
+    display: none;
+}
+
+#workerspages .homecolor.bgedit .purplebackground .righteditprofile .portofolio .type-portofolio .portofolio-radio .checkmark {
+    display: flex;
+    position: absolute;
+    margin-top: 10px;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 20px;
+    border: 2px solid #000;
+    border-radius: 50%;
+}
+
+#workerspages .homecolor.bgedit .purplebackground .righteditprofile .portofolio .type-portofolio .portofolio-radio input[type="radio"]:checked+.checkmark::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 12px;
+    height: 12px;
+    background-color: purple;
+    border-radius: 50%;
+}
+
+#workerspages .homecolor.bgedit .purplebackground .righteditprofile .portofolio .type-portofolio .portofolio-radio label:hover .checkmark {
+    border-color: purple;
+}
+
+#workerspages .homecolor.bgedit .purplebackground .righteditprofile .portofolio .uploadwrapper {
+    display: block;
+    padding: 0px 20px 0px 20px;
+}
+
+#workerspages .homecolor.bgedit .purplebackground .righteditprofile .portofolio .uploadwrapper .upload-image {
+    display: block;
+    border: 2px dashed #9EA0A5;
+    width: 100%;
+    height: 400px;
+    cursor: pointer;
+}
+
+#workerspages .homecolor.bgedit .purplebackground .righteditprofile .portofolio .uploadwrapper .upload-image .cloud {
+    padding: 50px 200px;
+    text-align: center;
+}
+
+#workerspages .homecolor.bgedit .purplebackground .righteditprofile .portofolio .uploadwrapper .upload-image .cloud h1{
+    font-size: 20px;
+    text-wrap: nowrap;
+    position: relative;
+    right: 100px;
+}
+
+#workerspages .homecolor.bgedit .purplebackground .righteditprofile .portofolio .uploadwrapper .upload-image .cloud p{
+    font-size: 16px;
+    text-wrap: nowrap;
+    position: relative;
+    right: 50px;
+}
+
+#workerspages .homecolor.bgedit .purplebackground .righteditprofile .portofolio .uploadwrapper .upload-image .small-img{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 50px;
+    padding: 0px 50px 0px 0px;
+}
+
+#workerspages .homecolor.bgedit .purplebackground .righteditprofile .portofolio .uploadwrapper .upload-image .small-img .resolution-image p{
+    width: 150px;
+    position: relative;
+    bottom: 40px;
+    left: 40px;
+}
+
+#workerspages .homecolor.bgedit .purplebackground .righteditprofile .portofolio .uploadwrapper .upload-image .small-img .size-image p{
+    width: 150px;
+    position: relative;
+    bottom: 40px;
+    left: 40px;
+}
+
+
+// FORM PERSONAL DATA INPUT STYLE
+#workerspages .righteditprofile .editformwrapper textarea,
+#workerspages .righteditprofile .editformwrapper input[type="text"],
+#workerspages .righteditprofile .editformwrapper input[type="password"],
+#workerspages .righteditprofile .editformwrapper input[type="datetime"],
+#workerspages .righteditprofile .editformwrapper input[type="daterange"],
+#workerspages .righteditprofile .editformwrapper input[type="datetime-local"],
+#workerspages .righteditprofile .editformwrapper input[type="date"],
+#workerspages .righteditprofile .editformwrapper input[type="month"],
+#workerspages .righteditprofile .editformwrapper input[type="time"],
+#workerspages .righteditprofile .editformwrapper input[type="week"],
+#workerspages .righteditprofile .editformwrapper input[type="number"],
+#workerspages .righteditprofile .editformwrapper input[type="email"],
+#workerspages .righteditprofile .editformwrapper input[type="url"],
+#workerspages .righteditprofile .editformwrapper input[type="search"],
+#workerspages .righteditprofile .editformwrapper input[type="tel"],
+#workerspages .righteditprofile .editformwrapper input[type="color"] {
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    margin: 0;
+    list-style: none;
+    position: relative;
+    padding: 7px 13px;
+    width: 100%;
+    height: 35px;
+    font-size: 15px;
+    line-height: 1.5;
+    background-image: none;
+    border-radius: 4px;
+    color: #1a1a1a;
+    background-color: #ffffff;
+    border: 1px solid #d3d3d3;
+}
+
+#workerspages .righteditprofile .editformwrapper textarea:hover,
+#workerspages .righteditprofile .editformwrapper input[type="text"]:hover,
+#workerspages .righteditprofile .editSkillprofile input[type="text"]:hover,
+#workerspages .righteditprofile .workexperienceform input[type="text"]:hover,
+#workerspages .righteditprofile .portofolio input[type="text"]:hover,
+#workerspages .righteditprofile .editformwrapper input[type="password"]:hover,
+#workerspages .righteditprofile .workexperienceform input[type="datetime"]:hover,
+#workerspages .righteditprofile .editformwrapper input[type="datetime"]:hover,
+#workerspages .righteditprofile .editformwrapper input[type="daterange"]:hover,
+#workerspages .righteditprofile .editformwrapper input[type="datetime-local"]:hover,
+#workerspages .righteditprofile .editformwrapper input[type="date"]:hover,
+#workerspages .righteditprofile .editformwrapper input[type="month"]:hover,
+#workerspages .righteditprofile .editformwrapper input[type="time"]:hover,
+#workerspages .righteditprofile .editformwrapper input[type="week"]:hover,
+#workerspages .righteditprofile .editformwrapper input[type="number"]:hover,
+#workerspages .righteditprofile .editformwrapper input[type="email"]:hover,
+#workerspages .righteditprofile .editformwrapper input[type="url"]:hover,
+#workerspages .righteditprofile .editformwrapper input[type="search"]:hover,
+#workerspages .righteditprofile .editformwrapper input[type="tel"]:hover,
+#workerspages .righteditprofile .editformwrapper input[type="color"]:hover {
+    border-color: #A0A0A0 !important;
+}
+
+#workerspages .righteditprofile .editformwrapper textarea:focus,
+#workerspages .righteditprofile .editformwrapper input[type="text"]:focus,
+#workerspages .righteditprofile .editSkillprofile input[type="text"]:focus,
+#workerspages .righteditprofile .workexperienceform input[type="text"]:focus,
+#workerspages .righteditprofile .portofolio input[type="text"]:focus,
+#workerspages .righteditprofile .editformwrapper input[type="password"]:focus,
+#workerspages .righteditprofile .workexperienceform input[type="datetime"]:focus,
+#workerspages .righteditprofile .editformwrapper input[type="datetime"]:focus,
+#workerspages .righteditprofile .editformwrapper input[type="daterange"]:focus,
+#workerspages .righteditprofile .editformwrapper input[type="datetime-local"]:focus,
+#workerspages .righteditprofile .editformwrapper input[type="date"]:focus,
+#workerspages .righteditprofile .editformwrapper input[type="month"]:focus,
+#workerspages .righteditprofile .editformwrapper input[type="time"]:focus,
+#workerspages .righteditprofile .editformwrapper input[type="week"]:focus,
+#workerspages .righteditprofile .editformwrapper input[type="number"]:focus,
+#workerspages .righteditprofile .editformwrapper input[type="email"]:focus,
+#workerspages .righteditprofile .editformwrapper input[type="url"]:focus,
+#workerspages .righteditprofile .editformwrapper input[type="search"]:focus,
+#workerspages .righteditprofile .editformwrapper input[type="tel"]:focus,
+#workerspages .righteditprofile .editformwrapper input[type="color"]:focus {
+    border-color: #A0A0A0 !important;
+    background-color: #ffffff !important;
+    outline: none;
+}
+
 
 ////////////////////////////////////////////////////////////
 

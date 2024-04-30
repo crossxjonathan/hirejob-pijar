@@ -57,48 +57,93 @@
 
 
 //////////////////////////////////////////////////////////////////////////
+
+// MAIN HEADER
+#pagewebsite header {
+    height: 20px;
+    width: 100%;
+}
+
+#pagewebsite .mainHeaderWrapper {
+    display: flex;
+    justify-content: space-between;
+    width: 1140px;
+    margin: 0 auto;
+}
+
+#pagewebsite .mainHeaderWrapper .mainwebsitelogo,
+#pagewebsite .mainHeaderWrapper .mainwebsitenav {
+    display: flex;
+    align-items: center;
+    padding: 30px;
+}
+
+#pagewebsite .mainHeaderWrapper .mainwebsitenav {
+    // margin-right: 30px;
+    font-weight: 700;
+    color: #5E50A1;
+    cursor: pointer;
+}
+
+#pagewebsite .mainHeaderWrapper .mainwebsitenav .notification,
+#pagewebsite .mainHeaderWrapper .mainwebsitenav .email,
+#pagewebsite .mainHeaderWrapper .mainwebsitenav .profile,
+#pagewebsite .mainHeaderWrapper .mainwebsitenav .logout {
+    padding: 8px 20px;
+}
+
+
+//////////////////////////////////////////////////////////////////////////
 // FOOTER
 
-#mainwebsite .footercolor {
+#mainwebsite .footercolor,
+#pagewebsite .footercolor {
     width: 100%;
     background-color: #5E50A1;
 }
 
-#mainwebsite footer {
+#mainwebsite footer,
+#pagewebsite footer {
     // height: 70px;
     width: 100%;
 }
 
-#mainwebsite .footerwrapper {
+#mainwebsite .footerwrapper,
+#pagewebsite .footerwrapper {
     // display: flex;
     // justify-content: space-between;
     width: 100%;
     margin: 0 auto;
 }
 
-#mainwebsite .footerwrapper .footerlogo{
+#mainwebsite .footerwrapper .footerlogo, 
+#pagewebsite .footerwrapper .footerlogo{
     padding: 50px 100px;
 }
 
-#mainwebsite .footerwrapper .footerinfo p{
+#mainwebsite .footerwrapper .footerinfo p,
+#pagewebsite .footerwrapper .footerinfo p {
     width: 300px;
     padding: 0px 0px 30px 100px;
     color: #ffffff;
 }
 
-#mainwebsite .footerwrapper hr{
+#mainwebsite .footerwrapper hr, 
+#pagewebsite .footerwrapper hr {
     width: 84%;
     border: none;
     height: 1px;
     background-color: #ffffff;
 }
 
-#mainwebsite .footerwrapper .footercopyright p{
+#mainwebsite .footerwrapper .footercopyright p,
+#pagewebsite .footerwrapper .footercopyright p {
     padding: 20px 0px 0px 100px;
     color: #ffffff;
 }
 
-#mainwebsite .footerwrapper .footercontactus {
+#mainwebsite .footerwrapper .footercontactus,
+#pagewebsite .footerwrapper .footercontactus {
     color: #ffffff;
     display: flex;
     position: relative;
@@ -124,15 +169,14 @@
         padding: 5px 10px;
     }
 
-    // #mainwebsite .footerwrapper hr{
-    //     width: 90%;
-    // }
 
-    #mainwebsite .footerwrapper .footercopyright p{
+    #mainwebsite .footerwrapper .footercopyright p,
+    #pagewebsite .footerwrapper .footercopyright p{
         padding: 20px 0px 20px 100px;
     }
 
-    #mainwebsite .footerwrapper .footercontactus {
+    #mainwebsite .footerwrapper .footercontactus,
+    #pagewebsite .footerwrapper .footercontactus {
         display: none;
     }
     

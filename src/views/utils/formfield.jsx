@@ -6,6 +6,20 @@ const FormField = ({
     change
 }) => {
 
+    const showError = () => {
+        let errorMessage = null;
+
+        if(formdata.validation && !formdata.valid) {
+            errorMessage = (
+                <div>
+                    {formdata.validationMessage}
+                </div>
+            )
+        }
+
+        return errorMessage;
+    }
+
     const renderTemplate = ({
         id,
         formdata,
@@ -23,6 +37,7 @@ const FormField = ({
                             value={formdata.value || ''}
                             onChange={(event) => change({ event, id })}
                         />
+                        {showError()}
                     </div>
                 )
                 break;

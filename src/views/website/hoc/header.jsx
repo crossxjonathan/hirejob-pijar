@@ -1,13 +1,13 @@
 import React from 'react';
 import Logo from '../../../assets/images/thumbnail_group3.png'
 
-const Header = (props) => {
+const Header = () => {
     const login = () => {
         window.location.href = '/auth/login';
     }
 
     const register = () => {
-        window.location.href = '/auth/register';
+        window.location.href = '/auth/register-options';
     }
 
     return (
@@ -17,10 +17,10 @@ const Header = (props) => {
             </div>
             <div className='websitenav'>
                 <div onClick={login} className='loginbutton'>
-                    Masuk
+                    LOGIN
                 </div>
                 <div onClick={register} className='registerbutton'>
-                    Daftar
+                    REGISTER
                 </div>
             </div>
         </header>

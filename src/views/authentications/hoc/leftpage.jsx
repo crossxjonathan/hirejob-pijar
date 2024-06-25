@@ -10,7 +10,7 @@ const LeftPage = () => {
                     <img src={logo} alt='logo' />
                 </div>
                 <div>
-                    <h1>Temukan developer berbakat & terbaik di berbagai bidang keahlian</h1>
+                    <h1>Find Talented & Best Developers in Various Fields of Expertise</h1>
                 </div>
             </div>
         </div>

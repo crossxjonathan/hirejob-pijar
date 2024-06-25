@@ -1,12 +1,16 @@
 import React from 'react';
-
+import axios from 'axios';
 import FormField from '../utils/formfield';
+import { generateData, isDataValid, update } from '../utils/formAction';
+import { useNavigate } from 'react-router-dom';
+import api from '../../configs/api';
 
 const RegisterPage = () => {
     const login = () => {
         window.location.href = '/auth/login';
     }
 
+    const navigate = useNavigate();
     const [formdata, formdataHandler] = React.useState({
         name: {
             element: 'input',
@@ -33,7 +37,7 @@ const RegisterPage = () => {
                 email: true
             }
         },
-        nohandphone: {
+        phone: {
             element: 'input',
             value: '',
             config: {
@@ -71,13 +75,40 @@ const RegisterPage = () => {
         }
     });
 
+    const updateForm = (event) => {
+        const newFormdata = update(event, formdata);
+        formdataHandler(newFormdata)
+    }
+
+    const submitForm = (event) => {
+        event.preventDefault();
+        event.stopPropagation();
+
+        let data = generateData(formdata);
+        let isvalid = isDataValid(formdata);
+
+        if (isvalid) {
+            api.post('/users/register/workers', data)
+            .then(res => {
+                console.log(res);
+                navigate('/')
+                return isvalid
+            })
+            .catch(error => {
+                console.log('Error fetching data',error);
+            })
+        } else {
+            console.log('data tidak valid')
+        }
+    }
+
     return (
         <div id="register" className='innerWrapper'>
             <div className='title'>
-                <h1>Halo, Pewpeople</h1>
+                <h1>Hello, Pewpeople</h1>
             </div>
             <div className='description'>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In euismod ipsum et dui rhoncus auctor.</p>
+                <p>Please register first to enter this website.</p>
             </div>
             <form onSubmit={(event) => submitForm(event)}>
                 <FormField
@@ -91,8 +122,8 @@ const RegisterPage = () => {
                     change={(element) => updateForm(element)}
                 />
                 <FormField
-                    id={'nohandphone'}
-                    formdata={formdata.nohandphone}
+                    id={'phone'}
+                    formdata={formdata.phone}
                     change={(element) => updateForm(element)}
                 />
                 <FormField
@@ -106,11 +137,12 @@ const RegisterPage = () => {
                     change={(element) => updateForm(element)}
                 />
             </form>
-            <div className='submitButton'>
-                Daftar
+            <div className='submitButton'
+            onClick={(event) => submitForm(event)}>
+                Register
             </div>
             <div className='urlButton'>
-                <p>Anda sudah punya akun?<span onClick={login}> Masuk disini</span></p>
+                <p>Already have account?<span onClick={login}> Sign in</span></p>
             </div>
         </div>
     )

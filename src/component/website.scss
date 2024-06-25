@@ -1,4 +1,4 @@
-//#workerspages
+//#workerspages #recruiterspages
 
 #workerspages, #recruiterspages {
     width: 100%;
@@ -27,15 +27,112 @@
 
 #workerspages .containerHome .searchwrapper,
 #recruiterspages .containerHome .searchwrapper {
+    -webkit-box-sizing: border-box;
+    display: flex;
+    justify-content: space-between;
     box-sizing: border-box;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
     width: 1000px;
-    padding: 20px 0px 20px 0px;
+    padding: 10px 0px 10px 0px;
     background-color: #ffffff;
     border-radius: 4px;
     -webkit-border-radius: 4px;
     -moz-border-radius: 4px;
     -ms-border-radius: 4px;
     -o-border-radius: 4px;
+}
+
+#workerspages .containerHome .searchwrapper .searchinput input{
+    width: 700px;
+    padding: 13px 10px 13px 20px;
+    color: #9EA0A5;
+    font-weight: 500;
+    font-size: 16px;
+    margin: 0px 0px 0px 20px;
+    border: none;
+}
+
+#workerspages .containerHome .searchwrapper .searchright {
+    display: flex;
+    padding: 0px 30px 0px 0px;    
+}
+
+#workerspages .containerHome .searchwrapper .searchright .searchicon{
+    padding: 10px 10px 0px 0px;
+}
+
+//CATEGORY DROPDOWN
+
+#workerspages .containerHome .searchwrapper .searchright .category {
+    padding: 10px 30px 0px 20px;
+    color: #9EA0A5;
+    font-weight: 500;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+}
+
+#workerspages .containerHome .searchwrapper .searchright .category .subcategory{
+    position: relative;
+    display: inline-block;
+    right: 80px;
+    top: 10px;
+}
+
+#workerspages .containerHome .searchwrapper .searchright .category .subcategory .subcategorycontent{
+    display: none;
+    position: absolute;
+    background-color: #3b279e;
+    min-width: 100px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    border-radius: 4px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    -ms-border-radius: 4px;
+    -o-border-radius: 4px;
+}
+
+#workerspages .containerHome .searchwrapper .searchright .category:hover .subcategory .subcategorycontent {
+    display: block;
+}
+
+
+#workerspages .containerHome .searchwrapper .searchright .category .subcategory .subcategorycontent a{
+    color: #ffffff;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    font-weight: 500;
+    font-size: 14px;
+}
+
+#workerspages .containerHome .searchwrapper .searchright .category .subcategory .subcategorycontent a:hover{
+    background-color: #1f154e;
+    box-shadow: 0 0 5px 1px rgba(59, 39, 158, 0.8);
+}
+
+#workerspages .containerHome .searchwrapper .searchright .searchbutton {
+    background-color: #5E50A1;
+    border: none;
+    color: white;
+    font-weight: 500;
+    padding: 10px 20px 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 4px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    -ms-border-radius: 4px;
+    -o-border-radius: 4px;
+}
+
+#workerspages .containerHome .searchwrapper .searchright .searchbutton:hover {
+    background-color: #3b279e;
+    box-shadow: 0 0 5px 1px rgba(59, 39, 158, 0.8);
 }
 
 //TABLE HOME PROFILE
@@ -45,12 +142,54 @@
     width: 1000px;
     height: 800px;
     background-color: #ffffff;
-    padding: 50px 0px 50px 0px;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
+    padding: 50px 20px 50px 20px;
     border-radius: 4px;
     -webkit-border-radius: 4px;
     -moz-border-radius: 4px;
     -ms-border-radius: 4px;
     -o-border-radius: 4px;
+}
+
+#workerspages .containerHome .tablewrapper .tableprofile,
+#recruiterspages .containerHome .tablewrapper .tableprofile{
+    display: flex;
+    justify-content: space-between;
+    padding: 0px 0px 100px 0px;
+}
+
+
+#workerspages .containerHome .tablewrapper .tableprofile .lefttable,
+#recruiterspages .containerHome .tablewrapper .tableprofile .lefttable{
+    display: flex;
+}
+
+#workerspages .containerHome .tablewrapper .tableprofile .lefttable .profilecontent,
+#recruiterspages .containerHome .tablewrapper .tableprofile .lefttable .profilecontent{
+    display: flex;
+    flex-direction: column;
+    padding: 0px 20px 0px 20px;
+}
+
+#workerspages .containerHome .tablewrapper .tableprofile .righttable,
+#recruiterspages .containerHome .tablewrapper .tableprofile .righttable{
+    background-color: #5E50A1;
+    padding: 15px 20px 15px 20px;
+    height: 50px;
+    color: #ffffff;
+    cursor: pointer;
+    font-weight: 500;
+    border-radius: 4px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    -ms-border-radius: 4px;
+    -o-border-radius: 4px;
+}
+
+#workerspages .containerHome .tablewrapper .tableprofile .righttable:hover,
+#recruiterspages .containerHome .tablewrapper .tableprofile .righttable:hover{
+    background-color: #3b279e;
+    box-shadow: 0 0 5px 1px rgba(59, 39, 158, 0.8);
 }
 
 #workerspages .pagination,
@@ -61,7 +200,8 @@
     padding: 50px 0px 50px 0px;
 }
 
-#workerspages .pagination a{
+#workerspages .pagination a,
+#recruiterspages .pagination a{
     color: #E2E5ED;
     float: left;
     padding: 8px 16px;
@@ -77,13 +217,15 @@
     -o-border-radius: 4px;
 }
 
-#workerspages .pagination a.active{
+#workerspages .pagination a.active,
+#recruiterspages .pagination a.active{
     background-color: #5E50A1;
     color: #E2E5ED;
     border: 1px solid #5E50A1;
 }
 
-#workerspages .pagination a:hover:not(.active) {
+#workerspages .pagination a:hover:not(.active),
+#recruiterspages .pagination a:hover:not(.active) {
     background-color: #5E50A1;
 }
 
@@ -296,8 +438,9 @@
     height: 50px;
     color: #ffffff;
     font-weight: 700;
-    padding: 13px 40px;
+    padding: 13px 20px 0px 30px ;
     cursor: pointer;
+    text-wrap: nowrap;
     border: 1px solid #ffffff;
     border-radius: 6px;
     -webkit-border-radius: 6px;

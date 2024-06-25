@@ -7,7 +7,7 @@ import {
     Navigate
 } from "react-router-dom";
 
-import './resources/styles.scss';
+import './component/styles.scss';
 
 import LandingPage from './views/website/landingpage';
 
@@ -17,6 +17,7 @@ import LoginPage from './views/authentications/login';
 import NoRoute from './views/404';
 import RegisterPage from './views/authentications/register';
 import RegisterRecruiters from './views/authentications/register-recruiters';
+import RegisterOptions from './views/authentications/registerOption';
 import MainLayout from './views/website/hoc/mainlayout';
 import PageLayout from './views/website/pages/pagelayout';
 
@@ -27,6 +28,7 @@ import EditProfileWorkers from './views/website/pages/workers/editprofileworkers
 import WorkersProfile from './views/website/pages/workers/workersprofile';
 
 //RECRUITERS
+import HomeRecruiters from './views/website/pages/recruiters/home';
 import RecruitersProfile from './views/website/pages/recruiters/recruitersprofile';
 import EditProfileRecruiters from './views/website/pages/recruiters/editprofilerecruiters';
 
@@ -43,6 +45,7 @@ const TheRoutes = () => {
                     <Route exact path={`auth/login`} element={<LoginPage />} />
                     <Route exact path={`auth/register`} element={<RegisterPage />} />
                     <Route exact path={`auth/register-recruiters`} element={<RegisterRecruiters />} />
+                    <Route exact path={`auth/register-options`} element={<RegisterOptions />} />
                 </Route>
                 <Route element={<PageLayout/>}>
                 <Route exact path={`workers/home`} element={<HomeWorkers />} />
@@ -51,6 +54,7 @@ const TheRoutes = () => {
                 <Route exact path={`workers/profile`} element={<WorkersProfile />} />
                 </Route>
                 <Route element={<PageLayout/>}>
+                <Route exact path={`recruiters/home`} element={<HomeRecruiters />} />
                 <Route exact path={`recruiters/profile`} element={<RecruitersProfile />} />
                 <Route exact path={`recruiters/editprofile`} element={<EditProfileRecruiters />} />
                 </Route>

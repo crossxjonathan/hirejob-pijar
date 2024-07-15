@@ -1,31 +1,139 @@
+/* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from 'react';
 import cloud1 from '../../../../assets/images/cloud1.png';
 import resolution from '../../../../assets/images/Group (1).png';
 import size from '../../../../assets/images/expand 2.png';
-import api from '../../../../configs/api';
+import imageDefault from '../../../../assets/images/profile1.png';
+import edit from '../../../../assets/images/edit.png';
+import { IoIosCloseCircle } from "react-icons/io";
+import experienceDefault from '../../../../assets/images/office-center.png';
 
 import FormField from '../../../utils/formfield';
-import { generateData, isDataValid, update } from '../../../utils/formAction';
+import { update } from '../../../utils/formAction';
+import { useNavigate } from 'react-router-dom';
+import API from '../../../../configs/api';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import TextField from '../../../utils/textfield';
+import portfolioDefault from '../../../../assets/images/Rectangle 641.png';
 
 const EditProfileWorkers = () => {
     const [selectType, setSelectType] = useState('mobile');
+    const [image, setImage] = useState(null);
     const [skill, setSkill] = useState('');
-    // const [mySkill, setMySkill] = useState([]);
+    const [profile, setProfile] = useState({});
+    const [port, setPort] = useState({});
+    const [workers, setWorkers] = useState('');
+    const [skills, setSkills] = useState([]);
+    const [experience, setExperience] = useState('');
+    const [portfolio, setPortfolio] = useState('');
+    const [imageFile, setImageFile] = useState([]);
+    
+    const navigate = useNavigate();
 
-    const getSkill = () => {
-        // const token = localStorage.getItem('token');
-        // api.get('/skills', {
-        //     headers: {
-        //         Authorization: `Bearer ${token}`
-        //     }
-        // })
-        // .then((res) => {
-        //     const skills = res.data.data
-        //     setMySkill(skills)
-        // })
+    const GetProfile = async () => {
+        try {
+            const res = await API.get('/workers/profile');
+            console.log(res, '<<<<<<<<<<<<<<<<<<<res');
+            setProfile(res.data.profile);
+            setFormdata({
+                ...formdata,
+                name: { ...formdata.name, value: res.data.profile.name },
+                jobdesk: { ...formdata.jobdesk, value: res.data.profile.job_desk },
+                domicile: { ...formdata.domicile, value: res.data.profile.domicile },
+                workplace: { ...formdata.workplace, value: res.data.profile.workplace },
+                description: { ...formdata.description, value: res.data.profile.description },
+            });
+            setSkills(res.data.skills || []);
+        } catch (error) {
+            console.log(error.message);
+        }
     }
 
-    const [formdata, formdataHandler] = React.useState({
+    const handleUpdateProfile = async () => {
+        try {
+            const updateData = {
+                name: formdata.name.value,
+                job_desk: formdata.jobdesk.value,
+                domicile: formdata.domicile.value,
+                workplace: formdata.workplace.value,
+                description: formdata.description.value,
+            };
+            const res = await API.put('/workers/profile', updateData);
+            setWorkers(res.data.data);
+        } catch (error) {
+            console.log(error.message);
+        }
+    }
+
+    const handleAddSkill = async (event) => {
+        event.preventDefault();
+        try {
+            const skillValue = formdata.skill.value;
+            const skillData = {
+                skill_name: skillValue,
+            };
+            const res = await API.post('/skills', skillData);
+            setSkills([...skills, res.data]);
+            setFormdata({
+                ...formdata,
+                skill: { ...formdata.skill_name, value: '' }
+            });
+        } catch (error) {
+            console.log(error.message);
+        }
+    }
+
+    const handleGetSkill = async () => {
+        try {
+            const res = await API.get('/skills');
+            setSkills(res.data.data)
+            console.log(res, '<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<res Skill');
+        } catch (error) {
+            console.log(error.message);
+        }
+    }
+
+    const handleDeleteSkill = async (id) => {
+        try {
+            const res = await API.delete(`/skills/${id}`);
+            setSkills(res.data.data);
+        } catch (error) {
+            console.log(error.message);
+        }
+    }
+
+
+    const handleAddExperience = async () => {
+        try {
+            const experienceData = {
+                position: formdata.position.value,
+                company_name: formdata.company.value,
+                month_company: formdata.datecompany.value.split(' ')[0],
+                year_company: formdata.datecompany.value.split(' ')[1],
+                description_company: formdata.descriptionExperience.value,
+            }
+
+            const res = await API.post('/experience', experienceData);
+            setExperience([...experience, res.data.data]);
+            console.log(res, '<<<<<<<<<<<<<<<<<<<<<<<<<<<res experience');
+        } catch (error) {
+            console.log(error.message);
+        }
+    }
+
+
+    const handleGetExperience = async () => {
+        try {
+            const res = await API.get('/experience');
+            console.log(res, '<<<<<<<<<<<<<<<<<<<<<<<<<<<<<get experience');
+            setExperience(res.data.data)
+        } catch (error) {
+            console.log(error.message);
+        }
+    }
+
+    const [formdata, setFormdata] = useState({
         name: {
             element: 'input',
             value: '',
@@ -35,8 +143,7 @@ const EditProfileWorkers = () => {
                 placeholder: 'Enter your name'
             },
             validation: {
-                required: true,
-                email: true
+                required: true
             }
         },
         jobdesk: {
@@ -80,7 +187,19 @@ const EditProfileWorkers = () => {
             value: '',
             config: {
                 name: 'Description',
-                type: 'text',
+                type: 'textarea',
+                placeholder: 'Enter your Description'
+            },
+            validation: {
+                required: true
+            }
+        },
+        descriptionExperience: {
+            element: 'input',
+            value: '',
+            config: {
+                name: 'Description',
+                type: 'textarea',
                 placeholder: 'Enter your Description'
             },
             validation: {
@@ -127,8 +246,8 @@ const EditProfileWorkers = () => {
             element: 'input',
             value: '',
             config: {
-                name: 'Date/year',
-                type: 'datetime',
+                name: 'Month/Year',
+                type: 'text',
                 placeholder: 'ex: January 2024'
             },
             validation: {
@@ -164,48 +283,129 @@ const EditProfileWorkers = () => {
     const handleTypePortofolio = (event) => {
         setSelectType(event.target.value);
     };
-    
 
-    const handleAddSkill = () => {
-        const token = localStorage.getItem('token');
-        api.post('/skills',
-            { skill_name: skill },
-            {
-                headers: {
-                    Authorization: `Bearer ${token}`
-                }
-            }
-        )
-        .then((res)=> {
-            // alert("Add Skill Successfully!!",res);
-            console.log(res, "<<<<<<<<<<<<Skill");
-            setSkill('');
-        })
-        .catch((err) => {
-            console.log(err.response);
-        });
-    };
-    
     const updateForm = (event) => {
         const newFormdata = update(event, formdata);
-        formdataHandler(newFormdata)
+        setFormdata(newFormdata);
 
         if (event && event.target && event.target.id === 'skill') {
-            setSkill(event.target.value)
+            setSkill(event.target.value);
         }
     }
 
-    // const submitForm = (event) => {
-    //     event.preventDefault();
-    //     event.stopPropagation();
+    const AddExperience = () => {
+        handleAddExperience();
+        navigate('/workers/profile');
+        toast.success('Add Work Experience Successfully!!')
+    }
 
-    //     let data = generateData(formdata);
-    //     let isvalid = isDataValid(formdata);
-    // }
+    const DeleteExperience = async (id) => {
+        try {
+            const res = await API.delete(`/experience/${id}`);
+            setExperience(res.data.data);
+        } catch (error) {
+            console.log(error.message);
+        }
+    }
 
-    useEffect(()=> {
-        getSkill()
-    })
+    const handleAddPortfolio = async () => {
+
+        try {
+            const imageData = await handleAddImage();
+            const portfolioData = {
+                application_name: formdata.application.value,
+                link_repository: formdata.repository.value,
+                type_portfolio: selectType,
+                upload_image: imageData.file_url,
+            };
+
+            const res = await API.post('/portfolio', portfolioData);
+            setPortfolio([...portfolio, res.data]);
+            toast.success('Portfolio Added Successfully!!');
+            navigate('/workers/profile');
+        } catch (error) {
+            console.log('Error adding portfolio:', error.message);
+            toast.error('Failed to add portfolio');
+        }
+    };
+
+    const Deleteportfolio = async (id) => {
+        try {
+            const res = await API.delete(`/portfolio/${id}`);
+            setPortfolio(res.data.data);
+            toast.success('Delete Successfully!!')
+        } catch (error) {
+            console.log(error.message);
+        }
+    }
+
+
+    const handleImageUpload = (event) => {
+        if (event.target.files && event.target.files[0]) {
+            const file = event.target.files[0];
+            setImage(URL.createObjectURL(file));
+            setImageFile(file);
+        }
+    };
+
+    const handleAddImage = async () => {
+        try {
+            const formData = new FormData();
+            formData.append('photo', imageFile);
+            const res = await API.post('/upload', formData, {
+                headers: { 'Content-Type': 'multipart/form-data' }
+            });
+            console.log(res, '<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<res add image');
+            return res.data.data;
+        } catch (error) {
+            console.error(error.message);
+            return null;
+        }
+    };
+
+    const handleProfilePhoto = async () => {
+        try {
+            const formData = new FormData();
+            formData.append('photo', imageFile);
+            const res = await API.put('/workers/profile/photo', formData, {
+                headers: { 'Content-Type': 'multipart/form-data' }
+            });
+            setProfile(res.data.data);
+            toast.success('Profile photo updated successfully!');
+        } catch (error) {
+            console.error(error.message);
+            toast.error('Failed to update profile photo.');
+        }
+    };
+
+
+    const handleGetPortfolio = async () => {
+        try {
+            const res = await API.get('/portfolio');
+            setPort(res.data.data);
+            console.log(res, '<<<<<<<<<<<<<<<<<<<<res');
+        } catch (error) {
+            console.log(error.message);
+        }
+    }
+
+    const handleSaveButton = () => {
+        handleUpdateProfile();
+        navigate('/workers/profile');
+        toast.success('Update Profile Successfully!!')
+    }
+
+    const handleCancelButton = () => {
+        navigate('/workers/profile');
+    }
+
+
+    useEffect(() => {
+        GetProfile();
+        handleGetSkill();
+        handleGetExperience();
+        handleGetPortfolio();
+    }, []);
 
     return (
         <div id='workerspages'>
@@ -214,7 +414,37 @@ const EditProfileWorkers = () => {
                     <div className='purplebackground'>
                         <div className='lefteditprofile'>
                             <div className='editprofilewrapper'>
-                                profile
+                                <div className='imageprofile'>
+                                    <img src={profile.photo || imageDefault} alt="imagedefault" />
+                                </div>
+                                <div className='uploadprofile'>
+                                <button onClick={handleProfilePhoto}>Upload</button>
+                                </div>
+                                <div className='editprofile'>
+                                    <label htmlFor='file-input'>
+                                    <input
+                                        id='file-input'
+                                        type='file'
+                                        style={{ display: 'none' }}
+                                        onChange={handleImageUpload}
+                                    />
+                                    <img src={edit} alt="editphoto" />
+                                    </label>
+                                </div>
+                                <div className='profiledata'>
+                                    <h3>{profile.name || 'Name:'}</h3>
+                                    <h2>{profile.job_desk || 'Position:'}</h2>
+                                    <p>{profile.domicile || 'Domicile:'}</p>
+                                    <p>{profile.workplace || 'Company:'}</p>
+                                </div>
+                                <div className='editcontainer'>
+                                    <div onClick={() => handleSaveButton()} className='Savebutton'>
+                                        Save
+                                    </div>
+                                    <div onClick={() => handleCancelButton()} className='Cancelbutton'>
+                                        Cancel
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div className='righteditprofile'>
@@ -245,7 +475,7 @@ const EditProfileWorkers = () => {
                                         change={(element) => updateForm(element)}
                                     />
                                     <div className='descriptionform'>
-                                        <FormField
+                                        <TextField
                                             id={'description'}
                                             formdata={formdata.description}
                                             change={(element) => updateForm(element)}
@@ -266,14 +496,20 @@ const EditProfileWorkers = () => {
                                             change={(event) => updateForm(event)}
                                             value={skill}
                                         />
-                                        <div onClick={handleAddSkill} className='skill-button'>
+                                        <div className='skill-button' onClick={handleAddSkill}>
                                             Add Skill
                                         </div>
-                                        <ul>
-                                          {/* {mySkill.map((item)=>{
-                                            <li>{item.skill_name}</li>
-                                          })} */}
-                                        </ul>
+                                    </div>
+                                    <div className='skillbox'>
+                                        {skills && skills.length > 0 ? (
+                                            skills.map((item, index) => (
+                                                <div key={item.id + '-' + index} className='skillcard'>
+                                                    {item.skill_name} <IoIosCloseCircle onClick={() => handleDeleteSkill(item.id)} />
+                                                </div>
+                                            ))
+                                        ) : (
+                                            ''
+                                        )}
                                     </div>
                                 </form>
                             </div>
@@ -302,17 +538,37 @@ const EditProfileWorkers = () => {
                                             />
                                         </div>
                                         <div className='descriptionform'>
-                                            <FormField
-                                                id={'description'}
-                                                formdata={formdata.description}
+                                            <TextField
+                                                id={'descriptionExperience'}
+                                                formdata={formdata.descriptionExperience}
                                                 change={(element) => updateForm(element)}
                                             />
                                         </div>
                                         <hr />
                                     </div>
-                                    <div className='add-experience'>
+                                    <div onClick={() => AddExperience()} className='add-experience'>
                                         Add Work Experience
                                     </div>
+                                    {experience && experience.length > 0 ? (
+                                        experience.map((item, index) => (
+                                            <div key={item.id + '-' + index} className='experienceContainer'>
+                                                <img src={experienceDefault} alt="experienceimg" />
+                                                <div className='experiencedetail'>
+                                                    <h4>{item.position}</h4>
+                                                    <h2>{item.company_name}</h2>
+                                                    <p>{item.month_company} {item.year_company}</p>
+                                                    <div className='descExp'>
+                                                        <p>{item.description_company}</p>
+                                                    </div>
+                                                    <div onClick={() => DeleteExperience(item.id)} className='DeleteExperience'>
+                                                        Delete
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        ))
+                                    ) : (
+                                        ''
+                                    )}
                                 </form>
                             </div>
                             <div className='portofolio'>
@@ -338,10 +594,10 @@ const EditProfileWorkers = () => {
                                             Type portofolio
                                         </div>
                                         <div className='portofolio-radio'>
-                                            <label className="aplication-mobile">
-                                                <input 
-                                                    type="radio" 
-                                                    checked={selectType === 'mobile'} 
+                                            <label className="application-mobile">
+                                                <input
+                                                    type="radio"
+                                                    checked={selectType === 'mobile'}
                                                     name="radio"
                                                     value="mobile"
                                                     onChange={handleTypePortofolio}
@@ -349,9 +605,9 @@ const EditProfileWorkers = () => {
                                                 <span className="checkmark"></span>
                                                 <p>Mobile Application</p>
                                             </label>
-                                            <label className="aplication-web">
-                                                <input 
-                                                    type="radio" 
+                                            <label className="application-web">
+                                                <input
+                                                    type="radio"
                                                     name="radio" />
                                                 <span className="checkmark"></span>
                                                 <p>Web Application</p>
@@ -362,22 +618,68 @@ const EditProfileWorkers = () => {
                                         <div className='title-portofolio'>
                                             Upload Image
                                         </div>
-                                        <div className='upload-image'>
-                                            <div className='cloud'>
-                                                <img src={cloud1} alt="cloud1" />
-                                                <h1>Drag & Drop untuk Upload Gambar Aplikasi Mobile</h1>
-                                                <p>Atau cari untuk mengupload file dari direktorimu.</p>
+                                        <div>
+                                            <div id="file-upload" className='upload-image'>
+                                                <input
+                                                    type="file"
+                                                    onChange={handleImageUpload}
+                                                    style={{ display: 'none' }}
+                                                    id="fileInput"
+                                                    accept="image/png, image/jpeg, image/gif/ image/jpg"
+                                                />
+                                                <label htmlFor="fileInput">
+                                                    <div className='cloud'>
+                                                        <img src={cloud1} alt="cloud1" />
+                                                        <h1>Drag & Drop untuk Upload Gambar Aplikasi Mobile</h1>
+                                                        <p>Atau cari untuk mengupload file dari direktorimu.</p>
+                                                    </div>
+                                                    <div className='small-img'>
+                                                        <div className='resolution-image'>
+                                                            <img src={resolution} alt="resolution" />
+                                                            <p>High-Res Image PNG, JPG or GIF</p>
+                                                        </div>
+                                                        <div className='size-image'>
+                                                            <img src={size} alt="size" />
+                                                            <p>Size 1080x1920 or 600x800</p>
+                                                        </div>
+                                                    </div>
+                                                </label>
                                             </div>
-                                            <div className='small-img'>
-                                                <div className='resolution-image'>
-                                                    <img src={resolution} alt="resolution" />
-                                                    <p>High-Res Image PNG, JPG or GIF</p>
+                                            {image && (
+                                                <div className='image-preview'>
+                                                    <h2>Preview:</h2>
+                                                    <img
+                                                        src={image}
+                                                        alt="Uploaded Preview"
+                                                        style={{ maxWidth: '100%', height: 'auto' }}
+                                                    />
                                                 </div>
-                                                <div className='size-image'>
-                                                    <img src={size} alt="size" />
-                                                    <p>Size 1080x1920 or 600x800</p>
-                                                </div>
+                                            )}
+                                        </div>
+                                        <div className='work-portfolio'>
+                                            <hr />
+                                            <div onClick={() => handleAddPortfolio()} className='add-portfolio'>
+                                                Add Portfolio
                                             </div>
+                                        </div>
+                                        <div>
+                                            {port.length > 0 ? (
+                                                port.map((item, index) => (
+                                                    <div key={item.id + '-' + index} className='portfolioContainer'>
+                                                        <img src={item.upload_image || portfolioDefault} alt="portfolioimage" />
+                                                        <div className='portdata'>
+                                                            <h4>{item.application_name}</h4>
+                                                            <h2>{item.link_repository}</h2>
+                                                            <p>{item.type_portfolio}</p>
+                                                            <div onClick={() => Deleteportfolio(item.id)} className='deletebutton'>
+                                                                Delete
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                ))
+                                            ) : (
+                                                ''
+                                            )}
                                         </div>
                                     </div>
                                 </form>

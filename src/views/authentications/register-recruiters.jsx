@@ -1,14 +1,15 @@
 import React from 'react';
-import axios from 'axios';
 import FormField from '../utils/formfield';
 import { generateData, isDataValid, update } from '../utils/formAction';
 import { useNavigate } from 'react-router-dom';
-import api from '../../configs/api';
+import API from '../../configs/api';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const RegisterRecruiters = () => {
 
     const SignIn = () => {
-        window.location.href = '/auth/login';
+       navigate('/auth/login');
     }
 
     const navigate = useNavigate();
@@ -69,7 +70,7 @@ const RegisterRecruiters = () => {
             value: '',
             config: {
                 name: 'No Handphone',
-                type: 'text',
+                type: 'number',
                 placeholder: 'Enter your phone number'
             },
             validation: {
@@ -107,29 +108,57 @@ const RegisterRecruiters = () => {
         formdataHandler(newFormdata)
     }
 
+    const validateEmail = (email) => {
+        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    }
+    
+    const validatePhone = (phone) => {
+        return /^[0-9]{10,12}$/.test(phone);
+    }
+    
     const submitForm = (event) => {
         event.preventDefault();
         event.stopPropagation();
-
+    
+        if (formdata.password.value !== formdata.confirmpassword.value) {
+            toast.error('Password not match')
+            console.log('Password not match');
+            return;
+        }
+    
+        if (!validateEmail(formdata.email.value)) {
+            toast.error('Invalid email')
+            console.log('Invalid email');
+            return;
+        }
+    
+        if (!validatePhone(formdata.phone.value)) {
+            toast.error('Invalid phone number')
+            console.log('Invalid phone number');
+            return;
+        }
+    
         let data = generateData(formdata);
         let isvalid = isDataValid(formdata);
-
+    
         if (isvalid) {
-            api.post('/users/register/recruiters', data)
+            API.post('/users/register/recruiters', data)
             .then(res => {
-                alert('Register Successfully!!!')
+                toast.success('Register Successfully!!')
                 console.log(res);
                 navigate('/')
                 return isvalid
             })
             .catch(error => {
-                console.log('Error fetching data',error);
+                toast.error('Error fetching data')
+                console.log('Error fetching data', error);
             })
         } else {
-            console.log('data tidak valid')
+            toast.info('Please fill the form')
+            console.log('Please fill the form')
         }
     }
-
+    
     return (
         <div id="register" className='innerWrapper'>
             <div className='title'>

@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
 
-const FormField = ({
+const TextField = ({
     id,
     formdata,
     change
@@ -33,7 +33,7 @@ const FormField = ({
                 formTemplate = (
                     <div className="formBlock">
                         <h6>{formdata.config.name}</h6>
-                        <input
+                        <textarea
                             {...formdata.config}
                             value={formdata.value || ''}
                             onChange={(event) => change({ event, id })}
@@ -65,4 +65,4 @@ const FormField = ({
     )
 }
 
-export default FormField;
+export default TextField;

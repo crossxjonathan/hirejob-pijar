@@ -1,13 +1,16 @@
 import React from 'react';
 import Logo from '../../../assets/images/thumbnail_group3.png'
+import { useNavigate } from 'react-router-dom';
 
 const Header = () => {
+    const navigate = useNavigate();
+
     const login = () => {
-        window.location.href = '/auth/login';
+        navigate('/auth/login')
     }
 
     const register = () => {
-        window.location.href = '/auth/register-options';
+        navigate('/auth/register-options')
     }
 
     return (

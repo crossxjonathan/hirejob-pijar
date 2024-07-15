@@ -9,16 +9,14 @@ const Footer = (props) => {
                     <img src={whitelogo} alt="whitelogo" />
                 </div>
                 <div className='footerinfo'>
-                    <p>Lorem ipsum dolor sit amet, 
-                        consectetur adipiscing elit. 
-                        In euismod ipsum et dui 
-                        rhoncus auctor.
+                    <p>Your trusted partner in talent acquisition and professional growth.
+                        Dedicated to connecting exceptional talents with leading companies.
                     </p>
                 </div>
                 <hr />
                 <div className='footerbottom'>
                     <div className='footercopyright'>
-                        <p>2020 Pewworld. All right reserved</p>
+                        <p>2020 Peworld. All right reserved</p>
                     </div>
                     <div className='footercontactus'>
                         <p>Telephone</p>

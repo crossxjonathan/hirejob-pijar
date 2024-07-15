@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React from 'react';
 
 import {
@@ -23,7 +24,6 @@ import PageLayout from './views/website/pages/pagelayout';
 
 //WORKERS
 import HomeWorkers from './views/website/pages/workers/home';
-import PortofolioProfile from './views/website/pages/workers/portofolio';
 import EditProfileWorkers from './views/website/pages/workers/editprofileworkers';
 import WorkersProfile from './views/website/pages/workers/workersprofile';
 
@@ -31,6 +31,11 @@ import WorkersProfile from './views/website/pages/workers/workersprofile';
 import HomeRecruiters from './views/website/pages/recruiters/home';
 import RecruitersProfile from './views/website/pages/recruiters/recruitersprofile';
 import EditProfileRecruiters from './views/website/pages/recruiters/editprofilerecruiters';
+import PrivateRoute from './configs/private';
+import DetailWorkersProfile from './views/website/pages/detail profile/detailworker';
+import HirePage from './views/website/pages/hire/hire';
+import DetailWorkers from './views/website/pages/detail profile/detail';
+import History from './views/website/pages/notification/notification';
 
 
 const TheRoutes = () => {
@@ -47,16 +52,23 @@ const TheRoutes = () => {
                     <Route exact path={`auth/register-recruiters`} element={<RegisterRecruiters />} />
                     <Route exact path={`auth/register-options`} element={<RegisterOptions />} />
                 </Route>
-                <Route element={<PageLayout/>}>
+                <Route element={<PrivateRoute> <PageLayout/> </PrivateRoute>}>
                 <Route exact path={`workers/home`} element={<HomeWorkers />} />
-                <Route exact path={`workers/portofolio`} element={<PortofolioProfile />} />
+                <Route exact path={`workers/detail/:id`} element={<DetailWorkers />} />
                 <Route exact path={`workers/editprofile`} element={<EditProfileWorkers />} />
                 <Route exact path={`workers/profile`} element={<WorkersProfile />} />
+                <Route exact path={`workers/hire/:id`} element={<HirePage />} />
+                <Route exact path={`workers/history`} element={<History />} />
                 </Route>
-                <Route element={<PageLayout/>}>
+                <Route element={<PrivateRoute> <PageLayout/> </PrivateRoute>}>
+                <Route exact path={`recruiters/detail/:id`} element={<DetailWorkersProfile />} />
                 <Route exact path={`recruiters/home`} element={<HomeRecruiters />} />
+                <Route exact path={`recruiters/detail`} element={<DetailWorkersProfile />} />
                 <Route exact path={`recruiters/profile`} element={<RecruitersProfile />} />
                 <Route exact path={`recruiters/editprofile`} element={<EditProfileRecruiters />} />
+                <Route exact path={`recruiters/hire/:id`} element={<HirePage />} />
+                <Route exact path={`recruiters/history`} element={<History />} />
+
                 </Route>
                 <Route
                     path={`404`}

@@ -1,15 +1,14 @@
-import React from 'react';
-
-import FormField from '../utils/formfield';
+import { useNavigate } from 'react-router-dom';
 
 const RegisterOptions = () => {
+    const navigation = useNavigate();
 
     const RegisterRecruiters = () => {
-        window.location.href = '/auth/register';
+        navigation('/auth/register');
     }
 
     const RegisterWorker = () => {
-        window.location.href = '/auth/register-recruiters';
+        navigation('/auth/register-recruiters');
     }
 
     return (

@@ -1,15 +1,16 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import FormField from '../utils/formfield';
 import { generateData, isDataValid, update } from '../utils/formAction';
 import { useNavigate } from 'react-router-dom';
-import api from '../../configs/api';
+import { useDispatch, useSelector } from 'react-redux';
+import { loginAction } from '../../storeredux/actions';
+import 'react-toastify/dist/ReactToastify.css';
+import { toast, ToastContainer } from 'react-toastify';
 
 const LoginPage = () => {
-    const register = () => {
-        window.location.href = '/auth/register-options';
-    }
-
+    const { user, error } = useSelector((state) => state.auth);
     const navigate = useNavigate();
+    const dispatch = useDispatch();
     const [formdata, formdataHandler] = React.useState({
         email: {
             element: 'input',
@@ -42,9 +43,13 @@ const LoginPage = () => {
         }
     });
 
+    const register = () => {
+        navigate('/auth/register-options');
+    }
+
     const updateForm = (event) => {
         const newFormdata = update(event, formdata);
-        formdataHandler(newFormdata)
+        formdataHandler(newFormdata);
     }
 
     const submitForm = (event) => {
@@ -55,24 +60,33 @@ const LoginPage = () => {
         let isvalid = isDataValid(formdata);
 
         if (isvalid) {
-            api.post(`/users/login`, data)
-            .then(res => {
-                alert('Welcome!!')
-                console.log(res);
-                navigate('/')
-                return isvalid
-            })
-            .catch(error => {
-                alert('Your Email & Password is False, Please check again!!')
-                console.log('Error fetching data',error);
-            })
+            dispatch(loginAction(data.email, data.password, navigate));
         } else {
-            console.log('data tidak valid')
+            console.log('invalid data');
         }
     }
 
+    useEffect(() => {
+        if (user) {
+            const { role } = user.data;
+            if (role === 'workers') {
+                navigate('/workers/home');
+            } else if (role === 'recruiters') {
+                navigate('/recruiters/home');
+            }
+            toast.success('Welcome!!!');
+        }
+    }, [user, navigate]);
+
+    useEffect(() => {
+        if (error) {
+            toast.error('Your Email & Password is incorrect. Please try again.');
+        }
+    }, [error]);
+
     return (
         <div id="login" className='innerWrapper'>
+            <ToastContainer position="bottom-right" />
             <div className='title'>
                 <h1>Hello, Pewpeople</h1>
             </div>
@@ -94,16 +108,16 @@ const LoginPage = () => {
             <div className='forgetButton'>
                 Forget Password?
             </div>
-            <div 
-            className='submitButton'
-            onClick={(event) => submitForm(event)}>
+            <div
+                className='submitButton'
+                onClick={(event) => submitForm(event)}>
                 Login
             </div>
             <div className='urlButton'>
                 <p>You have not account?<span onClick={register}> Sign up</span></p>
             </div>
         </div>
-    )
+    );
 }
 
 export default LoginPage;

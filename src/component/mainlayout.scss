@@ -86,11 +86,27 @@
 }
 
 #pagewebsite .mainHeaderWrapper .mainwebsitenav .notification,
-#pagewebsite .mainHeaderWrapper .mainwebsitenav .email,
+#pagewebsite .mainHeaderWrapper .mainwebsitenav .home,
 #pagewebsite .mainHeaderWrapper .mainwebsitenav .profile,
 #pagewebsite .mainHeaderWrapper .mainwebsitenav .logout {
-    padding: 8px 20px;
+    padding: 8px 30px;
 }
+
+#pagewebsite .mainHeaderWrapper .mainwebsitenav .profile img{
+    width: 35px;
+    height: 35px;
+    position: relative;
+    bottom: 4px;
+    cursor: pointer;
+    border: #5E50A1 1px solid;
+    object-fit: cover;
+    border-radius: 50px;
+    -webkit-border-radius: 50px;
+    -moz-border-radius: 50px;
+    -ms-border-radius: 50px;
+    -o-border-radius: 50px;
+}
+
 
 
 //////////////////////////////////////////////////////////////////////////
@@ -123,7 +139,7 @@
 
 #mainwebsite .footerwrapper .footerinfo p,
 #pagewebsite .footerwrapper .footerinfo p {
-    width: 300px;
+    width: 500px;
     padding: 0px 0px 30px 100px;
     color: #ffffff;
 }

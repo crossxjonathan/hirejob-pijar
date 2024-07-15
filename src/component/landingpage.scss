@@ -158,6 +158,8 @@
 
 #landingpage .containerOne .opinioncontainer .paddingcarrousel .sliderprofile .card-profile .framephoto img {
     width: 100px;
+    height: 100px;
+    object-fit: cover;
     margin-left: 100px;
     margin-top: 30px;
     margin-bottom: 10px;
@@ -197,9 +199,9 @@
 
 #landingpage .containerOne .infobar .infoframe h1 {
     position: absolute;
-    margin-top: -150px;
+    margin-top: -170px;
     margin-left: 100px;
-    width: 300px;
+    width: 400px;
     color: #ffffff;
 }
 

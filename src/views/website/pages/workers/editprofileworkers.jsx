@@ -116,7 +116,7 @@ const EditProfileWorkers = () => {
             }
 
             const res = await API.post('/experience', experienceData);
-            setExperience([...experience, res.data.data]);
+            setExperience([...experience, res.data]);
             toast.success('Add Work Experience Successfully!!')
             navigate('/workers/profile');
             // console.log(res, '<<<<<<<<<<<<<<<<<<<<<<<<<<<res experience');

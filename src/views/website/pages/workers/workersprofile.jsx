@@ -6,69 +6,57 @@ import portfoliodefault from '../../../../assets/images/Rectangle 641.png';
 import experiencedefault from '../../../../assets/images/office-center.png';
 import { useNavigate } from 'react-router-dom';
 import API from '../../../../configs/api';
+import { useSelector, useDispatch } from 'react-redux';
+import { fetchWorkers } from '../../../../storeredux/actions/worker.action';
+import { fetchPortfolio } from '../../../../storeredux/actions/portfolio.action';
+import { fetchExperience } from './../../../../storeredux/actions/experience.action';
+import { fetchSkill } from '../../../../storeredux/actions/skill.action';
 
 const WorkersProfile = () => {
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState('portfolio');
-  const [profile, setProfile] = useState({});
-  const [skills, setSkills] = useState([]);
-  const [portfolio, setPortfolio] = useState([]);
-  const [experience, setExperience] = useState([]);
+  const dispatch = useDispatch();
+
+  const { profile, loading, error } = useSelector((state) => state.workerProfile);
+  const portfolio = useSelector((state) => state.portfolio.data);
+  const experience = useSelector((state) => state.experience.data);
+  const skills = useSelector((state) => state.skill.data);
+
+  useEffect(() => {
+    dispatch(fetchWorkers());
+    dispatch(fetchPortfolio());
+    dispatch(fetchExperience());
+    dispatch(fetchSkill());
+  }, [dispatch]);
+
+  if (loading) {
+    return <p>Loading...</p>;
+  }
+
+  if (error) {
+    return <p>Error: {error}</p>;
+  }
 
   const handleEditProfile = () => {
     navigate('/workers/editprofile');
-  }
+  };
 
-  const getSkills = async () => {
-    try {
-      const res = await API.get('/skills');
-      setSkills(res.data.data);
-    } catch (error) {
-      console.log(error.message);
-    }
-  }
+  // const getSkills = async () => {
+  //   try {
+  //     const res = await API.get('/skills');
+  //     setSkills(res.data.data);
+  //   } catch (error) {
+  //     console.log(error.message);
+  //   }
+  // };
 
-  const getPortfolio = async () => {
-    try {
-      const res = await API.get('/portfolio');
-      setPortfolio(res.data.data);
-    } catch (error) {
-      console.log(error.message);
-    }
-  }
-  
-  const getExperience = async () => {
-    try {
-      const res = await API.get('/experience');
-      setExperience(res.data.data);
-    } catch (error) {
-      console.log(error.message);
-    }
-  }
-
-  const getProfile = async () => {
-    try {
-      const res = await API.get('/workers/profile');
-      setProfile(res.data.profile);
-    } catch (error) {
-      console.log(error.message);
-    }
-  }
-
-  useEffect(() => {
-    getProfile();
-    getSkills();
-    getPortfolio();
-    getExperience();
-  }, [])
 
   return (
     <div id='workerspages'>
       <section>
         <div className='homecolor'>
           <div className='workerscontainer'>
-            <div className='rectanglepurple'>
-            </div>
+            <div className='rectanglepurple'></div>
             <div className='workerswrapper'>
               <div className='RectangleWhiteLeft'>
                 <div className='personalProfile'>
@@ -95,7 +83,7 @@ const WorkersProfile = () => {
                         skills.map((item) => (
                           <div key={item.id} className='yellowSkill'>
                             <p>{item.skill_name}</p>
-                          </div>  
+                          </div>
                         ))
                       ) : (
                         <p>Skill Unavailable</p>
@@ -141,7 +129,7 @@ const WorkersProfile = () => {
                               <h2>{item.month_company} {item.year_company}</h2>
                               <p>{item.description_company}</p>
                             </div>
-                          </div>  
+                          </div>
                         ))
                       ) : (
                         <p>Experience Unavailable</p>
@@ -156,6 +144,6 @@ const WorkersProfile = () => {
       </section>
     </div>
   );
-}
+};
 
 export default WorkersProfile;

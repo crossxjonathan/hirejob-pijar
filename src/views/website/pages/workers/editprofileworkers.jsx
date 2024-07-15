@@ -77,7 +77,7 @@ const EditProfileWorkers = () => {
             setSkills([...skills, res.data]);
             setFormdata({
                 ...formdata,
-                skill: { ...formdata.skill_name, value: '' }
+                skill: { ...formdata.skill, value: '' }
             });
         } catch (error) {
             console.log(error.message);

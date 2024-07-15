@@ -2,10 +2,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { toast } from 'react-toastify';
 import API from '../../configs/api';
 import Cookies from 'js-cookie';
-
-export const LOGIN_REQUEST = 'LOGIN_REQUEST';
-export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
-export const LOGIN_FAILURE = 'LOGIN_FAILURE';
+import {LOGIN_FAILURE, LOGIN_REQUEST, LOGIN_SUCCESS} from './action.types';
 
 export const loginRequest = () => ({
   type: LOGIN_REQUEST,

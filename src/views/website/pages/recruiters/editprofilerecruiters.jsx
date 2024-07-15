@@ -10,13 +10,15 @@ import API from '../../../../configs/api';
 import TextField from '../../../utils/textfield';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { fetchRecruiter, updateRecruiterPhotoProfile, updateRecruiterProfile } from '../../../../storeredux/actions/recruiter.action';
+import { useDispatch, useSelector } from 'react-redux';
 
 const EditProfileRecruiters = () => {
-    const [profile, setProfile] = useState({});
-    const [image, setImage] = useState(null);
-    const [imageFile, setImageFile] = useState([]);
-    const [recruiters, setRecruiters] = useState('');
-
+    const dispatch = useDispatch();
+    const profile = useSelector(state => state.recruiterProfile.profile);
+    const loading = useSelector(state => state.recruiterProfile.loading);
+    const error = useSelector(state => state.recruiterProfile.error);
+  
     const [formdata, formdataHandler] = useState({
         name: {
             element: 'input',
@@ -104,88 +106,71 @@ const EditProfileRecruiters = () => {
         },
     });
 
+  
     const navigate = useNavigate();
-
-    const handleGetProfile = async () => {
-        try {
-            const res = await API.get('/recruiters/profile');
-            console.log(res, '<<<<<<<<<<<<<<<<<<<res');
-            setProfile(res.data.profile);
+  
+    useEffect(() => {
+      dispatch(fetchRecruiter());
+    }, [dispatch]);
+  
+    useEffect(() => {
+        if (profile) {
             formdataHandler({
                 ...formdata,
-                name: { ...formdata.name, value: res.data.profile.name },
-                position: { ...formdata.position, value: res.data.profile.position },
-                city: { ...formdata.city, value: res.data.profile.city },
-                phone: { ...formdata.phone, value: res.data.profile.phone },
-                description: { ...formdata.description, value: res.data.profile.description },
-                linkedin: { ...formdata.linkedin, value: res.data.profile.linkedin },
-                instagram: { ...formdata.instagram, value: res.data.profile.instagram },
+                name: { ...formdata.name, value: profile.name },
+                position: { ...formdata.position, value: profile.position },
+                city: { ...formdata.city, value: profile.city },
+                phone: { ...formdata.phone, value: profile.phone },
+                description: { ...formdata.description, value: profile.description },
+                linkedin: { ...formdata.linkedin, value: profile.linkedin },
+                instagram: { ...formdata.instagram, value: profile.instagram },
             });
-        } catch (error) {
-            console.log(error.message);
         }
-    }
-
-    const handleUpdateProfile = async () => {
-        try {
-            const updateData = {
-                name: formdata.name.value,
-                position: formdata.position.value,
-                city: formdata.city.value,
-                phone: formdata.phone.value,
-                description: formdata.description.value,
-                linkedin: formdata.linkedin.value,
-                instagram: formdata.instagram.value,
-            };
-            const res = await API.put('/recruiters/profile', updateData);
-            setRecruiters(res.data.data);
-        } catch (error) {
-            console.log(error.message);
-        }
-    }
-
-    const handleSaveButton = () => {
-        handleUpdateProfile();
+    }, [profile]);
+    
+  
+    const handleUpdateProfile = () => {
+        const updateData = {
+            name: formdata.name.value,
+            position: formdata.position.value,
+            city: formdata.city.value,
+            phone: formdata.phone.value,
+            description: formdata.description.value,
+            linkedin: formdata.linkedin.value,
+            instagram: formdata.instagram.value,
+        };
+        console.log("Update data:", updateData);
+        dispatch(updateRecruiterProfile(updateData));
         navigate('/recruiters/profile');
-        toast.success('Update Profile Successfully!!')
-    }
-
+        toast.success('Update Profile Successfully!!');
+    };
+    
+  
     const handleCancelButton = () => {
-        navigate('/recruiters/profile');
-    }
-
+      navigate('/recruiters/profile');
+    };
+  
     const updateForm = (element) => {
         const newFormdata = update(element, formdata);
         formdataHandler(newFormdata);
-    }
-
-    useEffect(() => {
-        handleGetProfile();
-    }, []);
-
-
-    const handleImageUpload = (event) => {
-        if (event.target.files && event.target.files[0]) {
-            const file = event.target.files[0];
-            setImage(URL.createObjectURL(file));
-            setImageFile(file);
-        }
     };
-
-
-    const handleProfilePhoto = async () => {
-        try {
-            const formData = new FormData();
-            formData.append('photo', imageFile);
-            const res = await API.put('/recruiters/profile/photo', formData, {
-                headers: { 'Content-Type': 'multipart/form-data' }
-            });
-            setProfile(res.data.data);
-            toast.success('Profile photo updated successfully!');
-        } catch (error) {
-            console.error(error.message);
-            toast.error('Failed to update profile photo.');
-        }
+    
+  
+    const [image, setImage] = useState(null);
+    const [imageFile, setImageFile] = useState([]);
+  
+    const handleImageUpload = (event) => {
+      if (event.target.files && event.target.files[0]) {
+        const file = event.target.files[0];
+        setImage(URL.createObjectURL(file));
+        setImageFile(file);
+      }
+    };
+  
+    const handleProfilePhoto = () => {
+      dispatch(updateRecruiterPhotoProfile(imageFile));
+      navigate('/recruiters/profile');
+      toast.success('Profile photo updated successfully!');
     };
 
 
@@ -221,7 +206,7 @@ const EditProfileRecruiters = () => {
                                     </div>
                                 </div>
                                 <div className='editcontainer'>
-                                    <div onClick={handleSaveButton} className='Savebutton'>
+                                    <div onClick={handleUpdateProfile} className='Savebutton'>
                                         Save
                                     </div>
                                     <div onClick={handleCancelButton} className='Cancelbutton'>

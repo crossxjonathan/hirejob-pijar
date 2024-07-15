@@ -5,44 +5,49 @@ import { VscSignOut } from "react-icons/vsc";
 import { CgProfile } from "react-icons/cg";
 import { IoIosNotifications } from "react-icons/io";
 import { IoIosHome } from "react-icons/io";
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Cookies from 'js-cookie';
+import { checkUserRole } from '../../../storeredux/actions/user.action';
 
 const MainHeader = () => {
     const navigate = useNavigate();
-    const { user } = useSelector((state) => state.auth);
+    const dispatch = useDispatch();
+    const { role } = useSelector((state) => state.role);
+
+    console.log(role, '<<<<<<<<<<<<<<<<<role');
+    React.useEffect(() => {
+        dispatch(checkUserRole());
+    }, [dispatch]);
 
     const handleNotif = () => {
-        if (user && user.data.role === 'recruiters') {
+        if (role === 'recruiters') {
             navigate('/recruiters/history');
         } else {
             navigate('/workers/history');
         }
-    }
+    };
 
     const handleHome = () => {
-        if (user && user.data.role === 'recruiters') {
+        if (role === 'recruiters') {
             navigate('/recruiters/home');
         } else {
             navigate('/workers/home');
         }
-    }
+    };
 
     const handleProfile = () => {
-        if (user && user.data.role === 'recruiters') {
+        if (role === 'recruiters') {
             navigate('/recruiters/profile');
         } else {
             navigate('/workers/profile');
         }
-    }
-
+    };
 
     const handleLogout = () => {
         Cookies.remove('token');
         Cookies.remove('refreshToken');
-
-        navigate('/')
-    }
+        navigate('/');
+    };
 
     return (
         <header className='mainHeaderWrapper'>

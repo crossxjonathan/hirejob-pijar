@@ -1,22 +1,32 @@
 /* eslint-disable no-unused-vars */
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import map from '../.././../../assets/images/map.png';
 import imageDefault from '../../../../assets/images/profile1.png';
-import { toast } from 'react-toastify';
+import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import { update } from '../../../utils/formAction';
 import FormField from '../../../utils/formfield';
 import API from '../../../../configs/api';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import TextField from '../../../utils/textfield';
+import { useDispatch, useSelector } from 'react-redux';
+import { hireWorker } from '../../../../storeredux/actions/hire.action';
+
 
 const HirePage = () => {
     const [activeTab, setActiveTab] = useState('portfolio');
     const [workers, setWorkers] = useState({});
     const [skill, setSkill] = useState({});
-    const [hire, setHire] = useState('');
+    // const [hire, setHire] = useState('');
     const {id} = useParams();
+
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+
+    // const hire = useSelector((state) => state.hireWorker);
+
+    const formRef = useRef();
 
     const [formdata, setFormdata] = useState({
         name: {
@@ -118,15 +128,15 @@ const HirePage = () => {
                 message_purpose: formdata.message.value,
                 workers_id: id
             };
-    
-            const res = await API.post('/hire', formData);
-            setHire(res.data);
+            dispatch(hireWorker(formData))
+            formRef.current.reset()
+            navigate('/recruiters/history')
             toast.success('Hiring Successfully!!');
-            console.log(res, '<<<<<<<<<<<<<<<<<<<<<res hire');
+            // console.log(res, '<<<<<<<<<<<<<<<<<<<<<res hire');
         } catch (error) {
             console.log(error.message);
         }
-    };    
+    };
 
     useEffect(() => {
         handleGetWorkers()
@@ -178,7 +188,7 @@ const HirePage = () => {
                                             <h1>Contact Person</h1>
                                             <p>If you are looking for dedicated and experienced workers for your project, we are ready to help. Please fill out the form below with the required information, and we will contact you as soon as possible.</p>
                                         </div>
-                                        <form>
+                                        <form ref={formRef}>
                                             <FormField
                                                 id={'message'}
                                                 formdata={formdata.message}
@@ -215,6 +225,7 @@ const HirePage = () => {
                             </div>
                         </div>
                     </div>
+                    <ToastContainer />
                 </div>
             </section>
         </div>

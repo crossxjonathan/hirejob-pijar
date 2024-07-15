@@ -9,49 +9,66 @@ import map from '../../../../assets/images/map.png';
 import { useNavigate } from 'react-router-dom';
 import API from '../../../../configs/api';
 import { toast } from 'react-toastify';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchRecruiter } from '../../../../storeredux/actions/recruiter.action';
 
 const RecruitersProfile = () => {
   const navigate = useNavigate();
-  const [profile, setProfile] = useState({});
-  const [imageFile, setImageFile] = useState(null);
+  // const [profile, setProfile] = useState({});
+  // const [imageFile, setImageFile] = useState(null);
+
+  const dispatch = useDispatch();
+  const {profile, loading, error} = useSelector((state) => state.recruiterProfile);
+
+  useEffect(() => {
+    dispatch(fetchRecruiter());
+  }, [dispatch])
+
+  if (loading) {
+    return <p>Loading....</p>
+  }
+
+  if (error) {
+    return <p>Error: {error}</p>
+  }
 
   const handleEditProfile = () => {
     navigate('/recruiters/editprofile');
   };
 
-  const handleGetProfile = async () => {
-    try {
-      const res = await API.get('/recruiters/profile');
-      setProfile(res.data.profile);
-      console.log(res, '<<<<<<<<<<<<<<<<<<<<res profile');
-    } catch (error) {
-      console.log(error.message);
-    }
-  };
+  // const handleGetProfile = async () => {
+  //   try {
+  //     const res = await API.get('/recruiters/profile');
+  //     setProfile(res.data.profile);
+  //     console.log(res, '<<<<<<<<<<<<<<<<<<<<res profile');
+  //   } catch (error) {
+  //     console.log(error.message);
+  //   }
+  // };
 
-  const handleBackgroundImageUpload = async (event) => {
-    if (event.target.files && event.target.files[0]) {
-      const file = event.target.files[0];
-      setImageFile(file);
+  // const handleBackgroundImageUpload = async (event) => {
+  //   if (event.target.files && event.target.files[0]) {
+  //     const file = event.target.files[0];
+  //     setImageFile(file);
 
-      const formData = new FormData();
-      formData.append('background', file);
-      try {
-        const res = await API.post('/upload', formData, {
-          headers: { 'Content-Type': 'multipart/form-data' }
-        });
-        setProfile(res.data.photo);
-        toast.success('Background image updated successfully!');
-      } catch (error) {
-        console.error(error.message);
-        toast.error('Failed to update background image.');
-      }
-    }
-  };
+  //     const formData = new FormData();
+  //     formData.append('background', file);
+  //     try {
+  //       const res = await API.post('/upload', formData, {
+  //         headers: { 'Content-Type': 'multipart/form-data' }
+  //       });
+  //       setProfile(res.data.photo);
+  //       toast.success('Background image updated successfully!');
+  //     } catch (error) {
+  //       console.error(error.message);
+  //       toast.error('Failed to update background image.');
+  //     }
+  //   }
+  // };
 
-  useEffect(() => {
-    handleGetProfile();
-  }, []);
+  // useEffect(() => {
+  //   handleGetProfile();
+  // }, []);
 
   return (
     <div id='recruiterspages'>
@@ -60,7 +77,7 @@ const RecruitersProfile = () => {
           <div className='recruiterscontainer'>
             <div className='recruiterswrapper'>
               <div className='rectanglepurple'>
-                <label htmlFor='background-upload' style={{ cursor: 'pointer' }}>
+                {/* <label htmlFor='background-upload' style={{ cursor: 'pointer' }}>
                   Change Background
                 </label>
                 <input
@@ -68,7 +85,7 @@ const RecruitersProfile = () => {
                   type='file'
                   style={{ display: 'none' }}
                   onChange={handleBackgroundImageUpload}
-                />
+                /> */}
               </div>
               <div className='rectanglewhite'>
                 <div className='imageprofilerecruiter'>

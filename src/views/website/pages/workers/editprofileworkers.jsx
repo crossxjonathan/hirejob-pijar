@@ -88,7 +88,7 @@ const EditProfileWorkers = () => {
         try {
             const res = await API.get('/skills');
             setSkills(res.data.data)
-            console.log(res, '<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<res Skill');
+            // console.log(res, '<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<res Skill');
         } catch (error) {
             console.log(error.message);
         }
@@ -98,6 +98,7 @@ const EditProfileWorkers = () => {
         try {
             const res = await API.delete(`/skills/${id}`);
             setSkills(res.data.data);
+            toast.success('Delete Skill Successfully!!')
         } catch (error) {
             console.log(error.message);
         }
@@ -116,7 +117,9 @@ const EditProfileWorkers = () => {
 
             const res = await API.post('/experience', experienceData);
             setExperience([...experience, res.data.data]);
-            console.log(res, '<<<<<<<<<<<<<<<<<<<<<<<<<<<res experience');
+            toast.success('Add Work Experience Successfully!!')
+            navigate('/workers/profile');
+            // console.log(res, '<<<<<<<<<<<<<<<<<<<<<<<<<<<res experience');
         } catch (error) {
             console.log(error.message);
         }
@@ -295,14 +298,13 @@ const EditProfileWorkers = () => {
 
     const AddExperience = () => {
         handleAddExperience();
-        navigate('/workers/profile');
-        toast.success('Add Work Experience Successfully!!')
     }
 
     const DeleteExperience = async (id) => {
         try {
             const res = await API.delete(`/experience/${id}`);
             setExperience(res.data.data);
+            toast.success('Delete Experience Successfully!!')
         } catch (error) {
             console.log(error.message);
         }
@@ -333,7 +335,7 @@ const EditProfileWorkers = () => {
         try {
             const res = await API.delete(`/portfolio/${id}`);
             setPortfolio(res.data.data);
-            toast.success('Delete Successfully!!')
+            toast.success('Delete Portfolio Successfully!!')
         } catch (error) {
             console.log(error.message);
         }
@@ -356,6 +358,7 @@ const EditProfileWorkers = () => {
                 headers: { 'Content-Type': 'multipart/form-data' }
             });
             console.log(res, '<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<res add image');
+            toast.success('Upload Image successfully!');
             return res.data.data;
         } catch (error) {
             console.error(error.message);

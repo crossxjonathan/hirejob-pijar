@@ -96,9 +96,6 @@ setup server:
 
 `VITE_URL_PEWORD`
 
-
-## Screenshots
-
 ## Screenshots
 
 <div align="center">

@@ -51,9 +51,7 @@ Peworld is a job search & worker recruitment website. On this website, user work
 
 ✨ Upload Job Vacancies: Allows recruiters to upload job vacancies easily and quickly.
 
-✨ Hire: Provides features for recruiters to search for suitable workers and carry out the hiring process directly on the platform.
-
-✨ & etc
+✨ Hire: Provides features for recruiters to search for suitable workers and carry out the hiring process directly on the platform & etc.
 
 
 ## Requirements

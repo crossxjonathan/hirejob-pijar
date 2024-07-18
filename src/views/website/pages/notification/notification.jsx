@@ -56,9 +56,6 @@ const History = () => {
                                 hire.map((item) => (
                                     <div key={item.id} className='cardHome'>
                                 <div className='subLeftCard'>
-                                    <div>
-                                        <img className='cardImage' src={item.photo || imageDefault} alt="Profile" />
-                                    </div>
                                     <div className='profile-data'>
                                         <h3>{item.hire_name || 'Name:'}</h3>
                                         <p>{item.message_purpose || 'No Message....'}</p>

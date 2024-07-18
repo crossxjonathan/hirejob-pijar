@@ -331,6 +331,7 @@ const EditProfileWorkers = () => {
 
     const Deleteportfolio = async (id) => {
         try {
+            console.log(id, '<<<<<<<<<<<<<<<<<<<<<DELETE THIS ID')
             const res = await API.delete(`/portfolio/${id}`);
             setPortfolio(res.data.data);
             toast.success('Delete Successfully!!')
@@ -383,8 +384,9 @@ const EditProfileWorkers = () => {
     const handleGetPortfolio = async () => {
         try {
             const res = await API.get('/portfolio');
+            console.log(res.data.data, '<<<<<<<<<<<<<<<<<<<<res876876876876');
             setPort(res.data.data);
-            console.log(res, '<<<<<<<<<<<<<<<<<<<<res');
+            
         } catch (error) {
             console.log(error.message);
         }
@@ -665,19 +667,22 @@ const EditProfileWorkers = () => {
                                         </div>
                                         <div>
                                             {port.length > 0 ? (
-                                                port.map((item, index) => (
-                                                    <div key={item.id + '-' + index} className='portfolioContainer'>
-                                                        <img src={item.upload_image || portfolioDefault} alt="portfolioimage" />
-                                                        <div className='portdata'>
-                                                            <h4>{item.application_name}</h4>
-                                                            <h2>{item.link_repository}</h2>
-                                                            <p>{item.type_portfolio}</p>
-                                                            <div onClick={() => Deleteportfolio(item.id)} className='deletebutton'>
-                                                                Delete
+                                                port.map((item, index) => {
+                                                    console.log(item, '<<<item')
+                                                    return (
+                                                        <div key={item.id + '-' + index} className='portfolioContainer'>
+                                                            <img src={item.upload_image || portfolioDefault} alt="portfolioimage" />
+                                                            <div className='portdata'>
+                                                                <h4>{item.application_name}</h4>
+                                                                <h2>{item.link_repository}</h2>
+                                                                <p>{item.type_portfolio}</p>
+                                                                <div onClick={() => Deleteportfolio(item.id)} className='deletebutton'>
+                                                                    Delete
+                                                                </div>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                ))
+                                                    )
+                                                })
                                             ) : (
                                                 ''
                                             )}

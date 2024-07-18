@@ -43,7 +43,7 @@ const HomeRecruiters = () => {
             }
         })
             .then(res => {
-                console.log(res.data);
+                // console.log(res.data);
                 setTotalPages(res.data.totalPages);
                 setWorkers(res.data.data);
                 setLoading(false);
@@ -62,7 +62,7 @@ const HomeRecruiters = () => {
                 ...prevSkills,
                 [id]: res.data.data
             }));
-            console.log(res, '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>res');
+            // console.log(res, '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>res');
         } catch (error) {
             console.error('Error fetching skills:', error);
         }
@@ -74,7 +74,8 @@ const HomeRecruiters = () => {
 
     useEffect(() => {
         workers.forEach(worker => {
-            GetSkillById(worker.id);
+            console.log(worker, '<<<<<<<<<<<<<<<<<<<<<<WORKERR');
+            GetSkillById(worker.users_id);
         });
     }, [workers]);
 
@@ -119,7 +120,6 @@ const HomeRecruiters = () => {
                                     Category
                                     <div className='subcategory'>
                                         <div className='subcategorycontent'>
-                                            <a href="#" onClick={() => handleCategoryClick("name")}>name</a>
                                             <a href="#" onClick={() => handleSortClick("A-Z")}>A - Z</a>
                                             <a href="#" onClick={() => handleSortClick("Z-A")}>Z - A</a>
                                         </div>
@@ -142,33 +142,35 @@ const HomeRecruiters = () => {
                             ) : error ? (
                                 <p>{error}</p>
                             ) : (
-                                workers.map(worker => (
-                                    <div key={worker.id} className='cardHome'>
-                                        <div className='subLeftCard'>
-                                            <div>
-                                                <img className='cardImage' src={worker.photo || imageDefault} alt="Profile" />
+                                workers.map(worker => {
+                                    return (
+                                        <div key={worker.id} className='cardHome'>
+                                            <div className='subLeftCard'>
+                                                <div>
+                                                    <img className='cardImage' src={worker.photo || imageDefault} alt="Profile" />
+                                                </div>
+                                                <div className='profile-data'>
+                                                    <h3>{worker.name || 'Name:'}</h3>
+                                                    <p>{worker.job_desk || 'Job:'}</p>
+                                                    <div className='domicile'>
+                                                        <img src={map} alt="domicileCard" />
+                                                        <p>{worker.domicile || 'Domicile:'}</p>
+                                                    </div>
+                                                    <div className='skillContainer'>
+                                                        {skills[worker.users_id] ? skills[worker.users_id].map(skill => (
+                                                            <div key={skill.id} className='yellowSkill'>
+                                                                <p>{skill.skill_name}</p>
+                                                            </div>
+                                                        )) : <p>Skills: Not Available</p>}
+                                                    </div>
+                                                </div>
                                             </div>
-                                            <div className='profile-data'>
-                                                <h3>{worker.name || 'Name:'}</h3>
-                                                <p>{worker.job_desk || 'Job:'}</p>
-                                                <div className='domicile'>
-                                                    <img src={map} alt="domicileCard" />
-                                                    <p>{worker.domicile || 'Domicile:'}</p>
-                                                </div>
-                                                <div className='skillContainer'>
-                                                    {skills[worker.id] ? skills[worker.id].map(skill => (
-                                                        <div key={skill.id} className='yellowSkill'>
-                                                            <p>{skill.skill_name}</p>
-                                                        </div>
-                                                    )) : <p>Skills: Not Available</p>}
-                                                </div>
+                                            <div onClick={() => navigate(`/recruiters/detail/${worker.users_id}`)} className='subRightCard'>
+                                                View Profile
                                             </div>
                                         </div>
-                                        <div onClick={() => navigate(`/recruiters/detail/${worker.id}`)} className='subRightCard'>
-                                            View Profile
-                                        </div>
-                                    </div>
-                                ))
+                                    )
+                                })
                             )}
                         </div>
                     </div>

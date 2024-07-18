@@ -35,7 +35,7 @@ const DetailWorkers = () => {
     try {
       const res = await API.get(`/skills/${id}`)
       setSkill(res.data.data)
-      console.log(id, '<<<<<<<<<<<res skill');
+      console.log(res.data.data, '<<<<<<<<<<<res skill');
     } catch (error) {
       console.log(error.message);
     }

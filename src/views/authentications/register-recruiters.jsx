@@ -151,7 +151,7 @@ const RegisterRecruiters = () => {
             })
             .catch(error => {
                 toast.error('Error fetching data')
-                console.log('Error fetching data', error);
+                console.log('Error fetching data', error.message);
             })
         } else {
             toast.info('Please fill the form')

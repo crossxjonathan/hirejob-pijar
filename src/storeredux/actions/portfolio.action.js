@@ -23,6 +23,7 @@ export const fetchPortfolio = () => {
         try {
             const res = await API.get('/portfolio');
             dispatch(fetchPortfolioSuccess(res.data.data));
+            console.log(res, '<<<<<<<<<<<<<<<<<<<<<<<<res');
           } catch (error) {
             dispatch(fetchPortfolioFailure(error.message));
           }

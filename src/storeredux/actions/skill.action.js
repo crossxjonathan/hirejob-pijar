@@ -21,6 +21,7 @@ export const fetchSkill = () => {
         dispatch(fetchSkillRequest());
         try {
             const res = await API.get('/skills');
+            console.log(res, '<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<RES SKILLL');
             dispatch(fetchSkillSuccess(res.data.data));
         } catch (error) {
             dispatch(fetchSkillFailure(error.message));

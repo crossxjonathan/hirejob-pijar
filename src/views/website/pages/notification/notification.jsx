@@ -2,17 +2,13 @@
 import React, { useEffect, useState } from 'react';
 import searchicon from '../../../../assets/images/search.png';
 import API from '../../../../configs/api';
-import imageDefault from '../../../../assets/images/profile1.png';
+import imageDefault from '../../../../assets/images/hire-1714369_1280.jpg';
 import map from '../../../../assets/images/map.png';
 import { useNavigate } from 'react-router-dom';
 import nohistory from '../../../../assets/images/no history.svg';
 
 const History = () => {
     const [hire, setHire] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState('');
-
-    const navigate = useNavigate();
 
     const handleGetHireWorkers = async () => {
         try {
@@ -55,20 +51,20 @@ const History = () => {
                             {hire.length > 0 ? (
                                 hire.map((item) => (
                                     <div key={item.id} className='cardHome'>
-                                <div className='subLeftCard'>
-                                    <div>
-                                        <img className='cardImage' src={item.photo || imageDefault} alt="Profile" />
+                                        <div className='subLeftCard'>
+                                            <div>
+                                                <img className='cardImageHistory' src={imageDefault} alt="Profile" />
+                                            </div>
+                                            <div className='profile-data'>
+                                                <h3>{item.hire_name || 'Name:'}</h3>
+                                                <p>{item.message_purpose || 'No Message....'}</p>
+                                                <p>{item.hire_description || 'No Description.....'}</p>
+                                            </div>
+                                        </div>
+                                        <div className='subRightCard'>
+                                            Chat
+                                        </div>
                                     </div>
-                                    <div className='profile-data'>
-                                        <h3>{item.hire_name || 'Name:'}</h3>
-                                        <p>{item.message_purpose || 'No Message....'}</p>
-                                        <p>{item.hire_description || 'No Description.....'}</p>
-                                    </div>
-                                </div>
-                                <div className='subRightCard'>
-                                    Chat
-                                </div>
-                            </div>
                                 ))
                             ) : (
                                 <div className='Nohistory'>

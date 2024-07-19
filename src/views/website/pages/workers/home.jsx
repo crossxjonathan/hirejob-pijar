@@ -11,13 +11,10 @@ const HomeWorkers = () => {
     const [workers, setWorkers] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
-    const [category, setCategory] = useState('name');
-    const [sortBy, setSortBy] = useState('A-Z');
+    const [sortBy, setSortBy] = useState('ASC');
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
     const [skills, setSkills] = useState({});
-    const [detail, setDetail] = useState({});
-
     const navigate = useNavigate();
 
     const handleSearchChange = (event) => {
@@ -26,10 +23,10 @@ const HomeWorkers = () => {
 
     const handleSearchSubmit = (event) => {
         event.preventDefault();
-        fetchWorkers(searchValue, category);
+        fetchWorkers(searchValue, currentPage, sortBy);
     };
 
-    const fetchWorkers = (search = '', sortby = 'name', page = 1, sortOrder = 'A-Z') => {
+    const fetchWorkers = (search = '', page = 1, sortOrder = 'ASC') => {
         setLoading(true);
         setError('');
 
@@ -38,19 +35,18 @@ const HomeWorkers = () => {
                 limit: 5,
                 page: page,
                 sort: sortOrder,
-                sortby,
-                search
+                sortby: 'name',
+                search: search
             }
         })
             .then(res => {
-                console.log(res.data);
-                setTotalPages(res.data.totalPages);
                 setWorkers(res.data.data);
+                setTotalPages(res.data.totalPages);
                 setLoading(false);
             })
             .catch(error => {
                 console.log('Error fetching data:', error);
-                setError(error.message);
+                setError('Error fetching data. Please try again.');
                 setLoading(false);
             });
     };
@@ -62,35 +58,35 @@ const HomeWorkers = () => {
                 ...prevSkills,
                 [id]: res.data.data
             }));
-            console.log(res, '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>res');
         } catch (error) {
             console.error('Error fetching skills:', error);
         }
-    }
+    };
 
     useEffect(() => {
-        fetchWorkers();
-    }, []);
-
+        fetchWorkers(searchValue, currentPage, sortBy);
+    }, [currentPage, searchValue, sortBy]);
+    
     useEffect(() => {
-        workers.forEach(worker => {
-            GetSkillById(worker.id);
-        });
+        if (workers.length) {
+            workers.forEach(worker => {
+                GetSkillById(worker.users_id);
+            });
+        }
     }, [workers]);
 
-    const handleCategoryClick = (category) => {
-        setCategory(category);
-        fetchWorkers(searchValue, category, currentPage, sortBy);
+    const handlePageClick = (page) => {
+        console.log('Current Page:', page);
+        if (page < 1 || page > totalPages) return;
+        setCurrentPage(page);
+        console.log('Fetching Workers for page:', page);
+        fetchWorkers(searchValue, page, sortBy);
     };
 
-    const handlePageClick = (page) => {
-        setCurrentPage(page);
-        fetchWorkers(searchValue, category, page, sortBy);
-    };
 
     const handleSortClick = (order) => {
         setSortBy(order);
-        fetchWorkers(searchValue, category, currentPage, order);
+        fetchWorkers(searchValue, currentPage, order);
     };
 
 
@@ -119,9 +115,20 @@ const HomeWorkers = () => {
                                     Category
                                     <div className='subcategory'>
                                         <div className='subcategorycontent'>
-                                            <a href="#" onClick={() => handleCategoryClick("name")}>name</a>
-                                            <a href="#" onClick={() => handleSortClick("A-Z")}>A - Z</a>
-                                            <a href="#" onClick={() => handleSortClick("Z-A")}>Z - A</a>
+                                            <a
+                                                href="#"
+                                                onClick={() => handleSortClick("ASC")}
+                                                className={sortBy === "ASC" ? "active" : ""}
+                                            >
+                                                A - Z
+                                            </a>
+                                            <a
+                                                href="#"
+                                                onClick={() => handleSortClick("DESC")}
+                                                className={sortBy === "DESC" ? "active" : ""}
+                                            >
+                                                Z - A
+                                            </a>
                                         </div>
                                     </div>
                                 </div>
@@ -142,33 +149,36 @@ const HomeWorkers = () => {
                             ) : error ? (
                                 <p>{error}</p>
                             ) : (
-                                workers.map(worker => (
-                                    <div key={worker.id} className='cardHome'>
-                                        <div className='subLeftCard'>
-                                            <div>
-                                                <img className='cardImage' src={worker.photo || imageDefault} alt="Profile" />
+                                workers.map(worker => {
+                                    // console.log(worker, '<<!@#<!<<Q<<<!<!<!@#<!#<!@#<!@#<!@')
+                                    return (
+                                        <div key={worker.id} className='cardHome'>
+                                            <div className='subLeftCard'>
+                                                <div>
+                                                    <img className='cardImage' src={worker.photo || imageDefault} alt="Profile" />
+                                                </div>
+                                                <div className='profile-data'>
+                                                    <h3>{worker.name || 'Name:'}</h3>
+                                                    <p>{worker.job_desk || 'Job:'}</p>
+                                                    <div className='domicile'>
+                                                        <img src={map} alt="domicileCard" />
+                                                        <p>{worker.domicile || 'Domicile:'}</p>
+                                                    </div>
+                                                    <div className='skillContainer'>
+                                                        {skills[worker.users_id] ? skills[worker.users_id].map(skill => (
+                                                            <div key={skill.id} className='yellowSkill'>
+                                                                <p>{skill.skill_name}</p>
+                                                            </div>
+                                                        )) : <p>Skills: Not Available</p>}
+                                                    </div>
+                                                </div>
                                             </div>
-                                            <div className='profile-data'>
-                                                <h3>{worker.name || 'Name:'}</h3>
-                                                <p>{worker.job_desk || 'Job:'}</p>
-                                                <div className='domicile'>
-                                                    <img src={map} alt="domicileCard" />
-                                                    <p>{worker.domicile || 'Domicile:'}</p>
-                                                </div>
-                                                <div className='skillContainer'>
-                                                    {skills[worker.id] ? skills[worker.id].map(skill => (
-                                                        <div key={skill.id} className='yellowSkill'>
-                                                            <p>{skill.skill_name}</p>
-                                                        </div>
-                                                    )) : <p>Skills: Not Available</p>}
-                                                </div>
+                                            <div onClick={() => navigate(`/workers/detail/${worker.users_id}`)} className='subRightCard'>
+                                                View Profile
                                             </div>
                                         </div>
-                                        <div onClick={() => navigate(`/workers/detail/${worker.id}`)} className='subRightCard'>
-                                            View Profile
-                                        </div>
-                                    </div>
-                                ))
+                                    )
+                                })
                             )}
                         </div>
                     </div>
@@ -178,10 +188,9 @@ const HomeWorkers = () => {
                             <a
                                 key={index}
                                 href="#"
-                                className={index + 1 === currentPage ? "active" : ""}
-                                onClick={() => handlePageClick(index + 1)}
+                                className={index + currentPage ? "active" : ""}
                             >
-                                {index + 1}
+                                {index + currentPage}
                             </a>
                         ))}
                         <a href="#" onClick={() => handlePageClick(currentPage + 1)}>&raquo;</a>

@@ -81,7 +81,7 @@ const WorkersProfile = () => {
                     <div className='skillContainer'>
                       {skills.length > 0 ? (
                         skills.map((item) => (
-                          <div key={item.id} className='yellowSkill'>
+                          <div key={item.users_id} className='yellowSkill'>
                             <p>{item.skill_name}</p>
                           </div>
                         ))
@@ -108,7 +108,7 @@ const WorkersProfile = () => {
                     <div className='portfolio-container'>
                       {portfolio.length > 0 ? (
                         portfolio.map((item) => (
-                          <div key={item.id} className='portfolio-content'>
+                          <div key={item.users_id} className='portfolio-content'>
                             <img src={item.upload_image || portfoliodefault} alt="portfoliodefault" />
                             <p>{item.application_name}</p>
                           </div>
@@ -121,7 +121,7 @@ const WorkersProfile = () => {
                     <div className='experience-container'>
                       {experience.length > 0 ? (
                         experience.map((item) => (
-                          <div key={item.id} className='experience-content'>
+                          <div key={item.users_id} className='experience-content'>
                             <img src={experiencedefault} alt="experiencedefault" />
                             <div className='sub-experience'>
                               <h1>{item.position}</h1>

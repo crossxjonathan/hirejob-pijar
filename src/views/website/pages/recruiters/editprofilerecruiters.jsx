@@ -14,6 +14,9 @@ import { fetchRecruiter, updateRecruiterPhotoProfile, updateRecruiterProfile } f
 import { useDispatch, useSelector } from 'react-redux';
 
 const EditProfileRecruiters = () => {
+    const [image, setImage] = useState(null);
+    const [previewImage, setPreviewImage] = useState(imageDefault);
+    const [imageFile, setImageFile] = useState([]);
     const dispatch = useDispatch();
     const profile = useSelector(state => state.recruiterProfile.profile);
     const loading = useSelector(state => state.recruiterProfile.loading);
@@ -112,6 +115,15 @@ const EditProfileRecruiters = () => {
     useEffect(() => {
       dispatch(fetchRecruiter());
     }, [dispatch]);
+
+    useEffect(() => {
+        if (profile.photo) {
+            setPreviewImage(profile.photo);
+        } else {
+            setPreviewImage(imageDefault);
+        }
+    }, [profile]);
+
   
     useEffect(() => {
         if (profile) {
@@ -154,25 +166,30 @@ const EditProfileRecruiters = () => {
         const newFormdata = update(element, formdata);
         formdataHandler(newFormdata);
     };
-    
-  
-    const [image, setImage] = useState(null);
-    const [imageFile, setImageFile] = useState([]);
+
   
     const handleImageUpload = (event) => {
-      if (event.target.files && event.target.files[0]) {
         const file = event.target.files[0];
-        setImage(URL.createObjectURL(file));
-        setImageFile(file);
-      }
-    };
-  
-    const handleProfilePhoto = () => {
-      dispatch(updateRecruiterPhotoProfile(imageFile));
-      navigate('/recruiters/profile');
-      toast.success('Profile photo updated successfully!');
+        if (file) {
+            setImageFile(file);
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                setPreviewImage(reader.result);
+            };
+            reader.readAsDataURL(file);
+        }
     };
 
+  
+    const handleProfilePhoto = () => {
+        if (imageFile) {
+            dispatch(updateRecruiterPhotoProfile(imageFile));
+            toast.success('Profile photo updated successfully!');
+            navigate('/recruiters/profile');
+        } else {
+            toast.error('Please select an image first.');
+        }
+    };
 
     return (
         <div id='recruiterspages'>
@@ -182,7 +199,7 @@ const EditProfileRecruiters = () => {
                         <div className='lefteditprofile'>
                             <div className='editprofilewrapper'>
                                 <div className='imageprofile'>
-                                    <img src={profile.photo || imageDefault} alt="imagedefault" />
+                                <img src={previewImage} alt="Profile" />
                                 </div>
                                 <div className='uploadprofile'>
                                 <button onClick={handleProfilePhoto}>Upload</button>

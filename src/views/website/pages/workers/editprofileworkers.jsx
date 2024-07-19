@@ -20,16 +20,26 @@ import portfolioDefault from '../../../../assets/images/Rectangle 641.png';
 const EditProfileWorkers = () => {
     const [selectType, setSelectType] = useState('mobile');
     const [image, setImage] = useState(null);
+    const [previewImage, setPreviewImage] = useState(imageDefault);
     const [skill, setSkill] = useState('');
-    const [profile, setProfile] = useState({});
+    const [profile, setProfile] = useState({ photo: imageDefault });
     const [port, setPort] = useState({});
     const [workers, setWorkers] = useState('');
     const [skills, setSkills] = useState([]);
     const [experience, setExperience] = useState('');
     const [portfolio, setPortfolio] = useState('');
     const [imageFile, setImageFile] = useState([]);
-    
+
     const navigate = useNavigate();
+
+    useEffect(() => {
+        if (profile.photo) {
+            setPreviewImage(profile.photo);
+        } else {
+            setPreviewImage(imageDefault);
+        }
+    }, [profile]);
+
 
     const GetProfile = async () => {
         try {
@@ -47,6 +57,7 @@ const EditProfileWorkers = () => {
             setSkills(res.data.skills || []);
         } catch (error) {
             console.log(error.message);
+            toast.error('Failed to Fetch Profile.');
         }
     }
 
@@ -61,8 +72,11 @@ const EditProfileWorkers = () => {
             };
             const res = await API.put('/workers/profile', updateData);
             setWorkers(res.data.data);
+            toast.success('Update Profile Successfully!!');
+            navigate('workers/profile');
         } catch (error) {
             console.log(error.message);
+            toast.error('Failed to update profile.');
         }
     }
 
@@ -74,13 +88,17 @@ const EditProfileWorkers = () => {
                 skill_name: skillValue,
             };
             const res = await API.post('/skills', skillData);
+            navigate('/workers/profile')
             setSkills([...skills, res.data.data]);
+            toast.success('Add Skill Successfully!!');
+            navigate('/workers/profile');
             setFormdata({
                 ...formdata,
                 skillData: { ...formdata.skill_name, value: '' }
             });
         } catch (error) {
             console.log(error.message);
+            toast.error('Failed to Add Skill.');
         }
     }
 
@@ -91,6 +109,7 @@ const EditProfileWorkers = () => {
             console.log(res, '<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<res Skill');
         } catch (error) {
             console.log(error.message);
+            toast.error('Failed to Fetch Skill.');
         }
     }
 
@@ -98,8 +117,10 @@ const EditProfileWorkers = () => {
         try {
             const res = await API.delete(`/skills/${id}`);
             setSkills(res.data.data);
+            toast.success('Delete Skill Successfully!!');
         } catch (error) {
             console.log(error.message);
+            toast.error('Failed to Delete Skill.');
         }
     }
 
@@ -116,9 +137,12 @@ const EditProfileWorkers = () => {
 
             const res = await API.post('/experience', experienceData);
             setExperience([...experience, res.data.data]);
-            console.log(res, '<<<<<<<<<<<<<<<<<<<<<<<<<<<res experience');
+            toast.success('Add Experience Successfully!!');
+            navigate('/workers/profile');
+            // console.log(res, '<<<<<<<<<<<<<<<<<<<<<<<<<<<res experience');
         } catch (error) {
             console.log(error.message);
+            toast.error('Failed to Add Experience.');
         }
     }
 
@@ -130,6 +154,7 @@ const EditProfileWorkers = () => {
             setExperience(res.data.data)
         } catch (error) {
             console.log(error.message);
+            toast.error('Failed to Fetch Experience.');
         }
     }
 
@@ -303,8 +328,10 @@ const EditProfileWorkers = () => {
         try {
             const res = await API.delete(`/experience/${id}`);
             setExperience(res.data.data);
+            toast.success('Delete Work Experience Successfully!!')
         } catch (error) {
             console.log(error.message);
+            toast.error('Failed to Delete Experience.');
         }
     }
 
@@ -334,18 +361,23 @@ const EditProfileWorkers = () => {
             console.log(id, '<<<<<<<<<<<<<<<<<<<<<DELETE THIS ID')
             const res = await API.delete(`/portfolio/${id}`);
             setPortfolio(res.data.data);
-            toast.success('Delete Successfully!!')
+            toast.success('Delete Portfolio Successfully!!')
         } catch (error) {
             console.log(error.message);
+            toast.error('Failed to Delete Portfolio.');
         }
     }
 
 
     const handleImageUpload = (event) => {
-        if (event.target.files && event.target.files[0]) {
-            const file = event.target.files[0];
-            setImage(URL.createObjectURL(file));
+        const file = event.target.files[0];
+        if (file) {
             setImageFile(file);
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                setPreviewImage(reader.result);
+            };
+            reader.readAsDataURL(file);
         }
     };
 
@@ -356,15 +388,22 @@ const EditProfileWorkers = () => {
             const res = await API.post('/upload', formData, {
                 headers: { 'Content-Type': 'multipart/form-data' }
             });
-            console.log(res, '<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<res add image');
+            // console.log(res, '<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<res add image');
+            toast.success('Upload Image Successfully!!');
             return res.data.data;
         } catch (error) {
             console.error(error.message);
+            toast.error('Failed to Add Image.');
             return null;
         }
     };
 
     const handleProfilePhoto = async () => {
+        if (!imageFile) {
+            toast.error('No image selected.');
+            return;
+        }
+
         try {
             const formData = new FormData();
             formData.append('photo', imageFile);
@@ -372,6 +411,7 @@ const EditProfileWorkers = () => {
                 headers: { 'Content-Type': 'multipart/form-data' }
             });
             setProfile(res.data.data);
+            setPreviewImage(res.data.data.photo);
             toast.success('Profile photo updated successfully!');
             navigate('/workers/profile');
         } catch (error) {
@@ -384,11 +424,12 @@ const EditProfileWorkers = () => {
     const handleGetPortfolio = async () => {
         try {
             const res = await API.get('/portfolio');
-            console.log(res.data.data, '<<<<<<<<<<<<<<<<<<<<res876876876876');
+            // console.log(res.data.data, '<<<<<<<<<<<<<<<<<<<<res876876876876');
             setPort(res.data.data);
-            
+
         } catch (error) {
             console.log(error.message);
+            toast.error('Failed to Fetch portfolio.');
         }
     }
 
@@ -418,20 +459,20 @@ const EditProfileWorkers = () => {
                         <div className='lefteditprofile'>
                             <div className='editprofilewrapper'>
                                 <div className='imageprofile'>
-                                    <img src={profile.photo || imageDefault} alt="imagedefault" />
+                                    <img src={previewImage} alt="imagedefault" />
                                 </div>
                                 <div className='uploadprofile'>
-                                <button onClick={handleProfilePhoto}>Upload</button>
+                                    <button onClick={handleProfilePhoto}>Upload</button>
                                 </div>
                                 <div className='editprofile'>
                                     <label htmlFor='file-input'>
-                                    <input
-                                        id='file-input'
-                                        type='file'
-                                        style={{ display: 'none' }}
-                                        onChange={handleImageUpload}
-                                    />
-                                    <img src={edit} alt="editphoto" />
+                                        <input
+                                            id='file-input'
+                                            type='file'
+                                            style={{ display: 'none' }}
+                                            onChange={handleImageUpload}
+                                        />
+                                        <img src={edit} alt="editphoto" />
                                     </label>
                                 </div>
                                 <div className='profiledata'>
